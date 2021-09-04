@@ -20,7 +20,7 @@ import Topbar from '../TopBar';
 function HomeScreenContainer({navigation} :any) {
   return (
     <View style={{flex: 1}}>
-      <Topbar title='Home' navigation={navigation} />
+      <Topbar title='Menu' navigation={navigation} />
       <HomeScreenInitial />
     </View>
   )

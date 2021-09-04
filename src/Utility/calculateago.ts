@@ -1,5 +1,5 @@
 /*
-    Calculate the time passed
+    Calculate the time passed based on the time passed in milisecond since epoch
 */
 
 export default function CalculateAgo(threadms :number | undefined) :string {
@@ -27,10 +27,12 @@ export default function CalculateAgo(threadms :number | undefined) :string {
     const day = Math.round(ago / (24*60*60*1000));
     if(day === 1)
         return day + ' day ago';
+
     if(day >= 30 ) {
         const d = new Date(threadms);
         return `${getDay(d.getDay())}, ${d.getDate()} ${getMonth(d.getMonth())}, ${d.getFullYear()}`;
     }
+
     if(day >= 7 ) {
         const d = new Date(threadms);
         return `${getDay(d.getDay())}, ${d.getDate()} ${getMonth(d.getMonth())}`;

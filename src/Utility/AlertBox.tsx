@@ -24,6 +24,11 @@ export default function AlertBox(props :propsReceive) {
 
 function dialogContent(text :string) {
     return (
-        <Text style={{fontSize: 20, lineHeight: 30, paddingHorizontal: 8}}>{text}</Text>
+        <Text style={{
+            fontSize: 16,
+            lineHeight: 24,
+            paddingHorizontal: 8,
+            color: 'white'}}
+        >{text}</Text>
     )
 }

@@ -27,30 +27,34 @@ export default function DialogBox(props :propsReceive, children :any) {
     if(!props.isshow) return <View style={{position: 'absolute'}}></View>;
     const responsive :Responsive = useResponsive();    
     const WIDTH     = 320;
-    const HEIGHT    = 380;
+    const HEIGHT    = 300;
 
     const styles = StyleSheet.create({
         container: {
             width: WIDTH, height: HEIGHT,
             position: 'absolute',
-            top:  ((responsive.height - HEIGHT) / 2) - 60,
+            top:  ((responsive.height - HEIGHT) / 2) - 40,
             left: ((responsive.width - WIDTH) /2),
-            backgroundColor: 'white', borderWidth: 1,
-            borderRadius: 8, padding: 8, zIndex: 100,
+            backgroundColor: '#333',
+            borderWidth: 1,
+            borderRadius: 8,
+            padding: 8,
+            zIndex: 100,
         },
         title: {
-            fontSize: 21, fontWeight: '500',
+            fontSize: 18, fontWeight: '500', color: 'white'
         },
         borderline :{
             borderWidth: 1, height: 1,
-            borderColor: 'rgba(115, 170, 220, 1)', marginVertical: 8,
+            borderColor: 'white', marginVertical: 8,
         },
         borderHorizontal: {
-            borderColor: 'rgba(115, 170, 220, 1)', borderRightWidth: 2,
+            borderColor: 'white', borderRightWidth: 2,
             marginTop: 6, height: 24,
         },
         buttonsContainer: {
-            borderTopWidth: 2, borderColor: 'rgba(115, 170, 220, 1)',
+            borderTopWidth: 2,
+            borderColor: 'white',
             marginTop: 12, flexDirection: 'row',
             paddingTop: 5,
         },
@@ -64,7 +68,7 @@ export default function DialogBox(props :propsReceive, children :any) {
             width: 280,
         },
         buttonText: {
-            fontSize: 21, textAlign: 'center', color: '#338',
+            fontSize: 18, textAlign: 'center', color: 'white',
         }
     });
 
@@ -104,10 +108,10 @@ export default function DialogBox(props :propsReceive, children :any) {
         <View style={{position: 'absolute', zIndex: 90}}>
             <View style={{
                 width: responsive.width, height: responsive.height,
-                top: 0, backgroundColor: 'rgba(0,0,0,.5)'}}>
+                top: 0, backgroundColor: 'rgba(0 , 0, 15, .5)'}}>
             </View>
             <View style={styles.container}>
-                <View style={{height: 310}}>
+                <View style={{height: HEIGHT - 70}}>
                     <Text style={styles.title}>{props.title}</Text>
                     <View style={styles.borderline}></View>
                     <ScrollView >
