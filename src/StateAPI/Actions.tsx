@@ -1,12 +1,14 @@
 /*
     This file is not accessed outside the StateAPI folder.
 */
-import { ActionInterface, actionType } from "./Interface"
+import { ActionInterface, actionType } from "./Interface";
+import { StateInterface } from "./index";
 
 const Action = {
-    test: () :ActionInterface => {
+    setState: (newstate :StateInterface) :ActionInterface => {
         return {
-            type: actionType.test
+            type: actionType.setState,
+            payload: newstate
         }
     },
 

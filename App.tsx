@@ -6,15 +6,16 @@
 */
 import React from 'react';
 import { StatusBar } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AlertBox from './src/Utility/AlertBox';
-import { contextProvider, createDefaultState } from './src/StateAPI';
+import { contextProvider, createDefaultState, act } from './src/StateAPI';
 import RootReducer from './src/StateAPI/RootReducer';
 
 import IndexNavigation from './src/IndexNavigation';
 
 export default function App() {
-  const [state, dispatch]             = React.useReducer(RootReducer, createDefaultState());
+  const [state, dispatch]           = React.useReducer(RootReducer, createDefaultState());
   const [msgboxdata, setmsgboxshow] = React.useState({
     ishow: false, title: '', text: ''
   });
@@ -22,6 +23,24 @@ export default function App() {
   function msgbox(title :string, msg :string) {
     setmsgboxshow({title: title, text: msg, ishow: true})
   }
+
+  React.useEffect(() => {
+    async function loadSaveStates() {
+      try {
+        const savestate = await AsyncStorage.getItem('savestates');
+        if(savestate == null) 
+          await AsyncStorage.setItem('savestates', JSON.stringify(state) )
+        else {
+          dispatch( act.setState( JSON.parse(savestate)) );
+          console.log( savestate );
+        }
+      }
+      catch(err) {
+        console.error('Failed to load the save state ' + err);
+      }
+    }
+    loadSaveStates();
+  }, [])
 
   return (
     <contextProvider.Provider value={{state, dispatch, msgbox}}>

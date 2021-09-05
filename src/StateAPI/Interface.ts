@@ -8,5 +8,5 @@ export interface ActionInterface {
 }
 
 export enum actionType {
-    test,
+    setState,
 }

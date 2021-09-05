@@ -6,22 +6,22 @@ import { View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
-import HomeScreenInitial from './HomeScreen';
+import BooksInitialScreen from './BookScreen';
 
-export default function HomeScreenIndex() {
+export default function BooksScreenIndex() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreenContainer} options={{headerShown: false}} />
+            <Stack.Screen name="Books" component={BookScreenContainer} options={{headerShown: false}} />
         </Stack.Navigator>
     );
 }
 
 import Topbar from '../TopBar';
-function HomeScreenContainer({navigation} :any) {
+function BookScreenContainer({navigation} :any) {
   return (
     <View style={{flex: 1}}>
       <Topbar title='Menu' navigation={navigation} />
-      <HomeScreenInitial />
+      <BooksInitialScreen />
     </View>
   )
 }

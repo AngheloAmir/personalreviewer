@@ -4,37 +4,18 @@
 */
 import React from 'react';
 import { StateInterface } from './index';
+import Functions from './Functions';
 
 export const ContextProvider :React.Context<any> = React.createContext(null);
 
-export function CreateDefaultState() :StateInterface{
+export function CreateDefaultState() :StateInterface {
     return {
-        text: 'Hello World!',
-        mydata: [
-            {
-                name:   'sample1',
-                date:   'jan 01',
-                lastmod: 'jan 01',
-                data: {
-                    content: 'Et enim ipsum ut ex excepteur et aliqua dolore laborum nostrud nisi fugiat.'
-                }
-            },
-            {
-                name:   'sample2',
-                date:   'jan 01',
-                lastmod: 'jan 01',
-                data: {
-                    content: 'Et enim ipsum ut ex excepteur et aliqua dolore laborum nostrud nisi fugiat.'
-                }
-            },
-            {
-                name:   'sample3',
-                date:   'jan 01',
-                lastmod: 'jan 01',
-                data: {
-                    content: 'Et enim ipsum ut ex excepteur et aliqua dolore laborum nostrud nisi fugiat. Et enim ipsum ut ex excepteur et aliqua dolore laborum nostrud nisi fugiat.'   
-                }
-            }
+        listOfShelfs: [],
+        selectedShelf: '',
+
+        shelf: [
+            //Functions.createBook('sample 1'),
+            //Functions.createBook('sample 2')
         ]
     }
 }

@@ -7,8 +7,9 @@ import { ContextProvider, CreateDefaultState } from './State';
 import { ActionInterface } from './Interface';
 import Actions from './Actions'
 
-export const contextProvider        = ContextProvider;
 export const createDefaultState     = () => CreateDefaultState();
+
+export const contextProvider        = ContextProvider;
 export const act                    = Actions;
 
 export interface StateAPI {
@@ -17,21 +18,23 @@ export interface StateAPI {
     msgbox    :(title :string, msg :string) => void;
 }
 
-//define the structure of the state
 export  interface StateInterface {
-    text    :string;
-    mydata  :Array<AData>;
+    listOfShelfs        :Array<string>; //Array of shelf name to be used as the async storage key
+    selectedShelf       :string;        //the name of the shelf to be loaded
+
+    shelf?              :Array<Book>;
 }
 
-//a data can be a file or a folder
-export interface AData {
+export interface Book {
     name        :string;
-    date        :string;    //date created
-    lastmod     :string;    //last modified
-    isFolder?   :boolean;   //false or undefined for regular file
-    data        :ANote | Array<AData>;
+    date        :string;
+    lastmod     :string;
+    files       :Array<File>;
 }
 
-export interface ANote {
-    content     :string;
+export interface File {
+    name        :string;
+    date        :string;
+    lastmod     :string;
+    content     :any;
 }
