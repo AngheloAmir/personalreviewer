@@ -10,7 +10,7 @@ import Actions from './Actions'
 export const createDefaultState     = () => CreateDefaultState();
 
 export const contextProvider        = ContextProvider;
-export const act                    = Actions;
+export const action                 = Actions;
 
 export interface StateAPI {
     state     :StateInterface;
@@ -19,10 +19,14 @@ export interface StateAPI {
 }
 
 export  interface StateInterface {
-    listOfShelfs        :Array<string>; //Array of shelf name to be used as the async storage key
-    selectedShelf       :string;        //the name of the shelf to be loaded
+    listOfShelfs    :Array<AShelf>;
+    selectedShelf   :string; //the name of the shelf to be loaded
+    shelf?          :Array<Book>;
+}
 
-    shelf?              :Array<Book>;
+export interface AShelf {
+    name  :string;
+    key   :string;
 }
 
 export interface Book {

@@ -1,4 +1,0 @@
-/*
-    A custom dialog framework
-*/
-

@@ -18,12 +18,12 @@ import { Responsive, useResponsive } from './useResponsive';
 export interface propsReceive {
     title         :string;
     isshow        :boolean;
-    ok?           :() => void;
-    cancel?       :() => void;
+    ok?           :() => void; // at lease of them is available
+    cancel?       :() => void; //
     dialogContent :any;
 }
 
-export default function DialogBox(props :propsReceive, children :any) {
+export default function DialogBox( props :propsReceive ) {
     if(!props.isshow) return <View style={{position: 'absolute'}}></View>;
     const responsive :Responsive = useResponsive();    
     const WIDTH     = 320;
@@ -33,7 +33,7 @@ export default function DialogBox(props :propsReceive, children :any) {
         container: {
             width: WIDTH, height: HEIGHT,
             position: 'absolute',
-            top:  ((responsive.height - HEIGHT) / 2) - 40,
+            top:  ((responsive.height - HEIGHT) / 2) - 60,
             left: ((responsive.width - WIDTH) /2),
             backgroundColor: '#333',
             borderWidth: 1,
@@ -68,7 +68,9 @@ export default function DialogBox(props :propsReceive, children :any) {
             width: 280,
         },
         buttonText: {
-            fontSize: 18, textAlign: 'center', color: 'white',
+            fontSize: 18,
+            textAlign: 'center',
+            color: 'lightgreen',
         }
     });
 
@@ -107,7 +109,7 @@ export default function DialogBox(props :propsReceive, children :any) {
     return (
         <View style={{position: 'absolute', zIndex: 90}}>
             <View style={{
-                width: responsive.width, height: responsive.height,
+                width: responsive.width, height: responsive.height - 50,
                 top: 0, backgroundColor: 'rgba(0 , 0, 15, .5)'}}>
             </View>
             <View style={styles.container}>

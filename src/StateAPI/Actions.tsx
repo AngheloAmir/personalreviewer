@@ -1,17 +1,45 @@
 /*
     This file is not accessed outside the StateAPI folder.
+
+    The list of actions that will be used by the dispatch function
 */
 import { ActionInterface, actionType } from "./Interface";
-import { StateInterface } from "./index";
+import { StateInterface, AShelf } from "./index";
 
 const Action = {
-    setState: (newstate :StateInterface) :ActionInterface => {
-        return {
-            type: actionType.setState,
-            payload: newstate
+    shelf: {
+        setList: (newstate :Array<AShelf>) :ActionInterface => {
+            return {
+                type: actionType.setListOfShelf,
+                payload: newstate
+            }
+        },
+    
+        add: (shelfname :AShelf) :ActionInterface => {
+            return {
+                type: actionType.addShelfItem,
+                payload: shelfname
+            }
+        },
+
+        delete: (shelfname :string) :ActionInterface => {
+            return {
+                type: actionType.deleteShelfItem,
+                payload: shelfname
+            }
         }
     },
 
+    books: {
 
+    },
+
+    file: {
+
+    },
+
+    setting: {
+
+    },
 }
 export default Action;

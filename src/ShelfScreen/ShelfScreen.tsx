@@ -1,33 +1,71 @@
 /*
+    * TYPE
+        Scene - A scene (screen) is a component that occupies a large part of the screen
+        Index - A parent component that does not display itself
+
+    * DESCRIPTION
+        Show the content of the Shelf Screen. This component also sets the layout of the Shelf Screen
+
+    * VISIBLE WHEN
+        This component is usually rendered when the app is first started or
+        the user choose "Shelfs" in the drawer menu
 */
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 
 import { contextProvider, StateAPI } from '../StateAPI';
+import ListOfShelfs     from './components/ListOfShelfs';
+import AddShelfBtn      from './components/AddShelfBtn';
+import AddNewShelf      from './dialogs/AddNewShelf';
+import Options          from './dialogs/Options';  
 
 export default function ShelfScreen() {
-    const { state } :StateAPI = React.useContext(contextProvider);
+    const { state } :StateAPI                       = React.useContext(contextProvider); 
+    const [isShowAddDialog, setShowAddDialog]       = React.useState(false);
+    const [isShowOptionDialog, setShowOptionDialog] = React.useState(false);
+    const [currentItem, setItem]                    = React.useState({name: '', index: 0});
+    
     return (
         <View style={styles.container}>
-        {
-            state.listOfShelfs.map((item :string, index :number) => {
-                return (
-                    <TouchableOpacity>
-                        <Text key={index} style={{fontSize: 32, color: 'white'}}>{item}</Text>
-                    </TouchableOpacity>
-                )
-            })
-        }
-            <Text style={{fontSize: 16, color: 'white'}}>add a shelf</Text>
+            <ScrollView style={styles.content}>
+                <ListOfShelfs
+                   onOptionPressed={(index :number) => {
+                       setShowOptionDialog(true);
+                       setItem({ name: state.listOfShelfs[index].name, index: index });
+                   }}
+                />
+                <AddShelfBtn onPress={() => setShowAddDialog(true)} />
+            </ScrollView>
+            
+        {/*DIALOGS ===============================================*/}
+            <AddNewShelf
+                show={isShowAddDialog}
+                cancel={() => setShowAddDialog(false)}
+                ok={() =>     setShowAddDialog(false)}
+            />
+
+            <Options
+                show={isShowOptionDialog}
+                currentItemIndex={currentItem.index}
+                currentItemName={currentItem.name}
+                cancel={() => setShowOptionDialog(false)}
+            /> 
         </View>
-    )
+    );
 }
 
-//STYLING===========================================================================
 import GlobalStyle from '../Utility/GloabalStyles';
+import { WindowDimension } from '../Utility/useResponsive';
+import { State } from 'react-native-gesture-handler';
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: GlobalStyle.defaultBackgroundColor,
+    },
+    content: {
+        height: WindowDimension.height - 70,
+        width: '90%',
+        alignSelf: 'center',
+        marginTop: 10,
+        paddingBottom: 24,
     }
 });

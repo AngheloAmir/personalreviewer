@@ -1,25 +1,25 @@
 /*
-    This component set ups the stack navigation screen
+    * TYPE
+        Index - A component that does not display itself
+
+    * DESCRIPTION
+        This component set ups the stack navigation screen
+
+    * VISIBLE WHEN
+        This component is usually rendered when the app is first started or
+        the user choose "Shelfs" in the drawer menu
 */
 import * as React from 'react';
 import { View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-const Stack = createStackNavigator();
 
 import ShelfScreenInitial from './ShelfScreen';
-
-export default function BooksScreenIndex() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="Shelfs" component={ShelfScreenContainer} options={{headerShown: false}} />
-        </Stack.Navigator>
-    );
-}
-
 import Topbar from '../TopBar';
-function ShelfScreenContainer({navigation} :any) {
+import GlobalStyle from '../Utility/GloabalStyles';
+
+export default function ShelfScreenContainer({navigation} :any) {
+  
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: GlobalStyle.defaultBackgroundColor,}}>
       <Topbar title='Menu' navigation={navigation} />
       <ShelfScreenInitial />
     </View>

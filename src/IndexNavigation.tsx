@@ -5,6 +5,9 @@
 
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -28,18 +31,35 @@ export default function Index() {
               <TouchableOpacity
                 style={props.state.index == 0 ? styles.drawerItemActive : styles.drawerItem }
                 onPress={() => props.state.index != 0 && props.navigation.navigate('Shelfs')}>
+                <MaterialCommunityIcons name='bookshelf' size={24} color='lightgreen' />
                 <Text style={styles.drawerText}>Your Shelfs</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={props.state.index == 2 ? styles.drawerItemActive : styles.drawerItem }
                 /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
+                <MaterialCommunityIcons name='file-find' size={24} color='lightgreen' />
+                <Text style={styles.drawerText}>Find Keyword</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={props.state.index == 2 ? styles.drawerItemActive : styles.drawerItem }
+                /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
+                <MaterialIcons name='settings' size={24} color='lightgreen' />
                 <Text style={styles.drawerText}>Settings</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={props.state.index == 3 ? styles.drawerItemActive : styles.drawerItem }
                 /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
+                <MaterialCommunityIcons name='help-box' size={24} color='lightgreen' />
+                <Text style={styles.drawerText}>Help</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={props.state.index == 3 ? styles.drawerItemActive : styles.drawerItem }
+                /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
+                <MaterialCommunityIcons name='information-outline' size={24} color='lightgreen' />
                 <Text style={styles.drawerText}>About</Text>
               </TouchableOpacity>
             </View>
@@ -80,10 +100,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   drawerItem: {
+    flexDirection: 'row',
     padding: 10,
     marginBottom: 10,
   },
   drawerItemActive: {
+    flexDirection: 'row',
     padding: 10,
     marginBottom: 10,
     backgroundColor: '#333',
@@ -92,5 +114,6 @@ const styles = StyleSheet.create({
   drawerText: {
     fontSize: 16,
     color: 'white',
+    paddingLeft: 16,
   }
 });
