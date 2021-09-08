@@ -24,8 +24,6 @@ interface propsReceive {
 }
 
 export default function OptionsDialog(props :propsReceive) {
-    const { dispatch } :StateAPI    = React.useContext(contextProvider);
-
     return (
         <DialogBox
             title={'What to do with ' + props.currentItemName + '?'}
@@ -36,8 +34,9 @@ export default function OptionsDialog(props :propsReceive) {
     );
 }
 
-
 function DialogContent( ) {
+    const { dispatch } :StateAPI = React.useContext(contextProvider);
+
     return (
         <View>
             <TouchableOpacity style={styles.item}>
