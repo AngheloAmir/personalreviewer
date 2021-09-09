@@ -6,16 +6,16 @@ import React from 'react';
 import { ContextProvider, CreateDefaultState } from './State';
 import { ActionInterface } from './Interface';
 import Actions from './Actions'
+import functions from './Functions';
 
 export const createDefaultState     = () => CreateDefaultState();
-
 export const contextProvider        = ContextProvider;
 export const action                 = Actions;
+export const statefunction          = functions;
 
 export interface StateAPI {
     state     :StateInterface;
     dispatch  :React.Dispatch< ActionInterface >;
-    msgbox    :(title :string, msg :string) => void;
 }
 
 export  interface StateInterface {

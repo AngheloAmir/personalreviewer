@@ -13,18 +13,40 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { contextProvider, StateAPI, AShelf } from '../../StateAPI';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { contextProvider, StateAPI, AShelf, statefunction, Book, action } from '../../StateAPI';
 
 interface propsReceive {
+    onOpenBooks     :() => void;
     onOptionPressed :(index :number) => void;
 }
 
 export default function ListOfShelfs( props :propsReceive ) {
-    const { state } :StateAPI = React.useContext(contextProvider);
+    const { state, dispatch } :StateAPI = React.useContext(contextProvider);
 
-    function handleShelfItemSelect(shelf :AShelf) {
-        console.error('CLICKING A SHELF NOT YET DEFINED')
-        console.log('name: ' + shelf.name + ', key: ' + shelf.key);
+    async function handleShelfItemSelect(shelf :AShelf) {
+        try {
+            const data = await AsyncStorage.getItem(shelf.key);
+            if(data == null) {
+                const shelfdata :Array<Book> = [];
+                    shelfdata.push( statefunction.createBook('demo') );
+                    shelfdata.push( statefunction.createBook('demo 2') );
+                    shelfdata[0].files.push( statefunction.createFile('file1') );
+                    shelfdata[0].files.push( statefunction.createFile('file2') );
+                    shelfdata[1].files.push( statefunction.createFile('qwe') );
+                    shelfdata[1].files.push( statefunction.createFile('asd') );
+                    shelfdata[1].files.push( statefunction.createFile('rty') );
+                    shelfdata[1].files.push( statefunction.createFile('ooo') );
+                await AsyncStorage.setItem(shelf.key, JSON.stringify(shelfdata));
+                dispatch( action.books.setBooks(shelfdata) );
+            }
+            else
+                dispatch( action.books.setBooks( JSON.parse(data) ) );
+        }
+        catch(err) {
+            console.error(err);
+        }
+        props.onOpenBooks();
     }
     
     return (

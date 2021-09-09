@@ -21,7 +21,7 @@ export default function ShelfScreenContainer({navigation} :any) {
   return (
     <View style={{flex: 1, backgroundColor: GlobalStyle.defaultBackgroundColor,}}>
       <Topbar title='Menu' navigation={navigation} />
-      <ShelfScreenInitial />
+      <ShelfScreenInitial navigation={navigation} />
     </View>
   )
 }

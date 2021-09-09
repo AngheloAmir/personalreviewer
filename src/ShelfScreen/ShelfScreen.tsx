@@ -21,7 +21,7 @@ import Options          from './dialogs/Options';
 import RenameShelf      from './dialogs/RenameShelf';
 import ConfirmDelete    from './dialogs/ConfirmDelete';
 
-export default function ShelfScreen() {
+export default function ShelfScreen({navigation} :any) {
     const { state } :StateAPI                       = React.useContext(contextProvider); 
     const [isShowAddDialog, setShowAddDialog]       = React.useState(false);
     const [isShowOptionDialog, setShowOptionDialog] = React.useState(false);
@@ -37,6 +37,9 @@ export default function ShelfScreen() {
                        setShowOptionDialog(true);
                        setItem({ name: state.listOfShelfs[index].name, index: index });
                    }}
+                   onOpenBooks={() => 
+                        navigation.jumpTo('Books')
+                   }
                 />
                 <AddShelfBtn onPress={() => setShowAddDialog(true)} />
             </ScrollView>
@@ -77,7 +80,6 @@ export default function ShelfScreen() {
 
 import GlobalStyle from '../Utility/GloabalStyles';
 import { WindowDimension } from '../Utility/useResponsive';
-import { State } from 'react-native-gesture-handler';
 const styles = StyleSheet.create({
     container: {
         backgroundColor: GlobalStyle.defaultBackgroundColor,

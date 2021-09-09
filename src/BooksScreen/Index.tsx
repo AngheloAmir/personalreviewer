@@ -11,7 +11,7 @@ import BooksInitialScreen from './BookScreen';
 export default function BooksScreenIndex() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Books" component={BookScreenContainer} options={{headerShown: false}} />
+            <Stack.Screen name="BooksScreen" component={BookScreenContainer} options={{headerShown: false}} />
         </Stack.Navigator>
     );
 }

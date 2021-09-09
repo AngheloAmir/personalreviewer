@@ -4,7 +4,7 @@
     The list of actions that will be used by the dispatch function
 */
 import { ActionInterface, actionType } from "./Interface";
-import { StateInterface, AShelf } from "./index";
+import { StateInterface, AShelf, Book } from "./index";
 
 const Action = {
     shelf: {
@@ -14,14 +14,12 @@ const Action = {
                 payload: newstate
             }
         },
-    
         add: (shelfname :AShelf) :ActionInterface => {
             return {
                 type: actionType.addShelfItem,
                 payload: shelfname
             }
         },
-
         rename: (shelfname :string, index :number) :ActionInterface => {
             return {
                 type: actionType.renameShelf,
@@ -29,7 +27,6 @@ const Action = {
                 index: index
             }
         },
-
         delete: (index :number) :ActionInterface => {
             return {
                 type: actionType.deleteShelfItem,
@@ -38,14 +35,23 @@ const Action = {
         }
     },
 
+    /*=============================================================================*/
     books: {
+        setBooks: (books :Array<Book>) :ActionInterface => {
+            return {
+                type: actionType.setBooks,
+                payload: books
+            }
+        },
 
     },
 
+    /*=============================================================================*/
     file: {
 
     },
 
+    /*=============================================================================*/
     setting: {
 
     },

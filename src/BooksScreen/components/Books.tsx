@@ -17,7 +17,7 @@ export default function Books( props :propsReceive ) {
             return (
                 <View key={index}>
                     <View>
-                        <Image source={BookIcon} style={{width: 32, height: 32}} resizeMode='cover'/>
+                        <Image source={BookIcon} style={{width: 48, height: 48}} resizeMode='cover'/>
                         <Text>{item.name}</Text>
                     </View>
                 </View>
