@@ -12,7 +12,6 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
 import DialogBox from '../../Utility/DialogBox';
 import { contextProvider, StateAPI, action } from '../../StateAPI';
 
@@ -21,6 +20,8 @@ interface propsReceive {
     currentItemName      :string;
     show                 :boolean;
     cancel               :() => void;
+    onRenameSelect       :() => void;
+    onDeleteSelect       :() => void;
 }
 
 export default function OptionsDialog(props :propsReceive) {
@@ -29,22 +30,28 @@ export default function OptionsDialog(props :propsReceive) {
             title={'What to do with ' + props.currentItemName + '?'}
             isshow={props.show}
             cancel={props.cancel}
-            dialogContent={ () => <DialogContent  /> }
+            dialogContent={ () =>
+                <DialogContent
+                    close={props.cancel}
+                    onRenameSelect={props.onRenameSelect}
+                    onDeleteSelect={props.onDeleteSelect}
+                />
+            }
         />
     );
 }
 
-function DialogContent( ) {
+function DialogContent( {close, onRenameSelect, onDeleteSelect} :any ) {
     const { dispatch } :StateAPI = React.useContext(contextProvider);
 
     return (
         <View>
-            <TouchableOpacity style={styles.item}>
+            <TouchableOpacity style={styles.item} onPress={() => { onRenameSelect(); close() }}>
                 <MaterialCommunityIcons name='rename-box' size={32} color='lightgreen' />
                 <Text style={styles.itemtext}>Rename</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item}>
+            <TouchableOpacity style={styles.item} onPress={() => { onDeleteSelect(); close() }}>
                 <MaterialCommunityIcons name='delete-forever' size={32} color='lightgreen' />
                 <Text style={styles.itemtext}>Delete</Text>
             </TouchableOpacity>
@@ -58,6 +65,7 @@ function DialogContent( ) {
 }
 
 import GlobalStyle from '../../Utility/GloabalStyles';
+import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 const styles = StyleSheet.create({
     item: {
         flexDirection: 'row',

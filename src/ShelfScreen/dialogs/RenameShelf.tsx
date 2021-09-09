@@ -3,10 +3,10 @@
         Dialog Box - A Dialog Box is a component that over takes the current scene without replacing it.
 
     * DESCRIPTION
-        Show the add new shelf dialog box to user using DialogBox from utilities
+        Show the rename shelf dialog box to user using DialogBox from utilities
 
     * VISIBLE WHEN
-        The user pressed add shelf button in the screen
+        The user pressed the three dot (option) and choose the "rename shelf" in the dialog that appear
 */
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
@@ -14,29 +14,27 @@ import DialogBox from '../../Utility/DialogBox';
 import { contextProvider, StateAPI, action } from '../../StateAPI';
 
 interface propsReceive {
-    show    :boolean;
-    cancel  :() => void;
-    ok      :() => void;
+    shelfname   :string;
+    index       :number;
+    onclose     :() => void;
 }
 
-export default function AddNewShelfDialog(props :propsReceive) {
+export default function RenameShelf(props :propsReceive) {
     const { dispatch } :StateAPI    = React.useContext(contextProvider);
-    const [shelfname, setname]      = React.useState('');
+    const [shelfname, setname]      = React.useState(props.shelfname);
 
     function handleOnOk() {
-        if(!shelfname || shelfname.length < 1 ) return;
-        const shelfn = shelfname.trim();
-        dispatch( action.shelf.add({name: shelfn, key: '' + Date.now() }) );
-        setname('');
-        props.ok();
+        if(!shelfname || shelfname.trim().length < 1 ) return;
+        dispatch( action.shelf.rename(shelfname.trim(), props.index) );
+        props.onclose();
     }
 
     return (
         <DialogBox
-            title='Add New Shelf'
-            isshow={props.show}
+            title={'Rename ' + props.shelfname}
+            isshow={true}
             ok={handleOnOk}
-            cancel={props.cancel}
+            cancel={props.onclose}
             dialogContent={ () => <DialogContent shelfname={shelfname} setname={setname} /> }
         />
     );

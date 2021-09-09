@@ -39,7 +39,7 @@ export default function Index() {
                 style={props.state.index == 2 ? styles.drawerItemActive : styles.drawerItem }
                 /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
                 <MaterialCommunityIcons name='file-find' size={24} color='lightgreen' />
-                <Text style={styles.drawerText}>Find Keyword</Text>
+                <Text style={styles.drawerText}>Search</Text>
               </TouchableOpacity>
 
               <TouchableOpacity

@@ -18,11 +18,15 @@ import ListOfShelfs     from './components/ListOfShelfs';
 import AddShelfBtn      from './components/AddShelfBtn';
 import AddNewShelf      from './dialogs/AddNewShelf';
 import Options          from './dialogs/Options';  
+import RenameShelf      from './dialogs/RenameShelf';
+import ConfirmDelete    from './dialogs/ConfirmDelete';
 
 export default function ShelfScreen() {
     const { state } :StateAPI                       = React.useContext(contextProvider); 
     const [isShowAddDialog, setShowAddDialog]       = React.useState(false);
     const [isShowOptionDialog, setShowOptionDialog] = React.useState(false);
+    const [isRenameOptionDialog, setRenameDialog]   = React.useState(false);
+    const [isConfirmDeleteDialog, setConfirmDelete] = React.useState(false);
     const [currentItem, setItem]                    = React.useState({name: '', index: 0});
     
     return (
@@ -49,7 +53,24 @@ export default function ShelfScreen() {
                 currentItemIndex={currentItem.index}
                 currentItemName={currentItem.name}
                 cancel={() => setShowOptionDialog(false)}
-            /> 
+                onRenameSelect={() => setRenameDialog(true)}
+                onDeleteSelect={() => setConfirmDelete(true)}
+            />
+
+            { isRenameOptionDialog &&
+            <RenameShelf
+                shelfname={currentItem.name}
+                index={currentItem.index}
+                onclose={() => setRenameDialog(false)}
+            /> }
+
+            { isConfirmDeleteDialog &&
+            <ConfirmDelete
+                shelfname={currentItem.name}
+                index={currentItem.index}
+                onclose={() => setConfirmDelete(false)}
+            />
+            }
         </View>
     );
 }

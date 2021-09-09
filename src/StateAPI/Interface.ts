@@ -10,5 +10,6 @@ export interface ActionInterface {
 export enum actionType {
     setListOfShelf,
     addShelfItem,
+    renameShelf,
     deleteShelfItem,
 }

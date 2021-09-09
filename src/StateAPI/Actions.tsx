@@ -22,10 +22,18 @@ const Action = {
             }
         },
 
-        delete: (shelfname :string) :ActionInterface => {
+        rename: (shelfname :string, index :number) :ActionInterface => {
+            return {
+                type: actionType.renameShelf,
+                payload: shelfname,
+                index: index
+            }
+        },
+
+        delete: (index :number) :ActionInterface => {
             return {
                 type: actionType.deleteShelfItem,
-                payload: shelfname
+                index: index,
             }
         }
     },

@@ -22,16 +22,15 @@ export default function AddShelfBtn(props :propsReceive) {
     return (
         <View style={style.container}>
             <TouchableOpacity onPress={props.onPress} style={style.buttonContainer}>
-                <MaterialIcons name="library-add" size={28} color='lightgreen' />
+                <MaterialIcons name="library-add" size={30} color='lightgreen' />
                 <Text style={style.text}>New Shelf</Text>
             </TouchableOpacity>
 
             <TouchableOpacity  style={style.buttonContainer}>
-                <MaterialCommunityIcons name="database-import" size={28} color='lightgreen' />
+                <MaterialCommunityIcons name="database-import" size={30} color='lightgreen' />
                 <Text style={style.text}>Import</Text>
             </TouchableOpacity>
         </View>
-        
     );
 }
 
