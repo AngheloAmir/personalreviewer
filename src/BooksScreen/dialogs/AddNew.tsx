@@ -3,10 +3,10 @@
         Dialog Box - A Dialog Box is a component that over takes the current scene without replacing it.
 
     * DESCRIPTION
-        Show the rename shelf dialog box to user using DialogBox from utilities
+        
 
     * VISIBLE WHEN
-        The user pressed the three dot (option) and choose the "rename shelf" in the dialog that appear
+        
 */
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
@@ -14,27 +14,29 @@ import DialogBox from '../../Utility/DialogBox';
 import { contextProvider, StateAPI, action } from '../../StateAPI';
 
 interface propsReceive {
-    shelfname   :string;
-    index       :number;
-    onclose     :() => void;
+    show    :boolean;
+    cancel  :() => void;
+    ok      :() => void;
 }
 
-export default function RenameShelf(props :propsReceive) {
+export default function AddNew(props :propsReceive) {
     const { dispatch } :StateAPI    = React.useContext(contextProvider);
-    const [shelfname, setname]      = React.useState(props.shelfname);
+    const [shelfname, setname]      = React.useState('');
 
     function handleOnOk() {
-        if(!shelfname || shelfname.trim().length < 1 ) return;
-        dispatch( action.shelf.rename(shelfname.trim(), props.index) );
-        props.onclose();
+        if(!shelfname || shelfname.length < 1 ) return;
+        const shelfn = shelfname.trim();
+        dispatch( action.shelf.add({name: shelfn, key: '' + Date.now() }) );
+        setname('');
+        props.ok();
     }
 
     return (
         <DialogBox
-            title={'Rename ' + props.shelfname}
-            isshow={true}
+            title='Add New Shelf'
+            isshow={props.show}
             ok={handleOnOk}
-            cancel={props.onclose}
+            cancel={props.cancel}
             dialogContent={ () => <DialogContent shelfname={shelfname} setname={setname} /> }
         />
     );
@@ -58,7 +60,6 @@ function DialogContent( props :dialogContentProps ) {
                     fontSize: 16,
                     padding: 8,
                     color: 'white',
-                    marginBottom: 8,
                 }}
             />
         </View>

@@ -18,10 +18,13 @@ export interface StateAPI {
     dispatch  :React.Dispatch< ActionInterface >;
 }
 
-export  interface StateInterface {
+export interface StateInterface {
     listOfShelfs    :Array<AShelf>;
-    selectedShelf   :string; //the name of the shelf to be loaded
-    shelf?          :Array<Book>;
+    selectedShelf   :string;            //the key of the shelf to be loaded
+    shelf           :Array<Book>;
+    isOnBooks       :boolean,
+    selectedBook    :number;
+    selectedPage    :number;
 }
 
 export interface AShelf {

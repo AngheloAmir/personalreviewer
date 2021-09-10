@@ -4,7 +4,7 @@
     The list of actions that will be used by the dispatch function
 */
 import { ActionInterface, actionType } from "./Interface";
-import { StateInterface, AShelf, Book } from "./index";
+import { AShelf, Book } from "./index";
 
 const Action = {
     shelf: {
@@ -43,7 +43,24 @@ const Action = {
                 payload: books
             }
         },
-
+        setIsOnBooks: (isOnBooks :boolean) :ActionInterface => {
+            return {
+                type: actionType.setIsOnBooks,
+                payload: isOnBooks
+            }
+        },
+        setSelectedBook: (bookindex :number) :ActionInterface => {
+            return {
+                type: actionType.setSelectedBook,
+                payload: bookindex
+            }
+        },
+        setSelectedPage: (pageIndex :number) :ActionInterface => {
+            return {
+                type: actionType.setSelectedPage,
+                payload: pageIndex
+            }
+        },
     },
 
     /*=============================================================================*/

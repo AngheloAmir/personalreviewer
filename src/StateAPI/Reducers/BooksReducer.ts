@@ -11,10 +11,27 @@ export default function BooksReducer(state :StateInterface, action :ActionInterf
                 ...state,
                 shelf: action.payload
             }
-           
+        
+        case actionType.setIsOnBooks:
+            return {
+                ...state,
+                isOnBooks: action.payload
+            }
+            
+        case actionType.setSelectedBook:
+            return {
+                ...state,
+                selectedBook: action.payload
+            }
+        
+        case actionType.setSelectedPage:
+            return {
+                ...state,
+                selectedPage: action.payload
+            }
+
         default:
             console.error('ACTION NOT DEFINED IN THE REDUCER');
             return state;
     }
 }
-

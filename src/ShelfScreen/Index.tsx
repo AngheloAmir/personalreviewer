@@ -19,7 +19,7 @@ import GlobalStyle from '../Utility/GloabalStyles';
 export default function ShelfScreenContainer({navigation} :any) {
   
   return (
-    <View style={{flex: 1, backgroundColor: GlobalStyle.defaultBackgroundColor,}}>
+    <View style={{flex: 1, backgroundColor: GlobalStyle.defaultBackgroundColor}}>
       <Topbar title='Menu' navigation={navigation} />
       <ShelfScreenInitial navigation={navigation} />
     </View>

@@ -1,7 +1,7 @@
 /*
     This file is not accessed outside the StateAPI folder.
 */
-import getDate from '../Utility/getdate';
+import getDate from '../Utility/Functions/getdate';
 import { Book, File } from "./index";
 
 const functions = {

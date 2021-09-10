@@ -12,9 +12,11 @@
 */
 import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { contextProvider, StateAPI } from '../StateAPI';
-import ListOfShelfs     from './components/ListOfShelfs';
+import { contextProvider, StateAPI, AShelf, Book, action, statefunction } from '../StateAPI';
+import ListOfItems      from '../Utility/ListOfItems';
 import AddShelfBtn      from './components/AddShelfBtn';
 import AddNewShelf      from './dialogs/AddNewShelf';
 import Options          from './dialogs/Options';  
@@ -22,25 +24,54 @@ import RenameShelf      from './dialogs/RenameShelf';
 import ConfirmDelete    from './dialogs/ConfirmDelete';
 
 export default function ShelfScreen({navigation} :any) {
-    const { state } :StateAPI                       = React.useContext(contextProvider); 
+    const { state, dispatch } :StateAPI             = React.useContext(contextProvider); 
+    const [currentItem, setItem]                    = React.useState({name: '', index: 0});
     const [isShowAddDialog, setShowAddDialog]       = React.useState(false);
     const [isShowOptionDialog, setShowOptionDialog] = React.useState(false);
     const [isRenameOptionDialog, setRenameDialog]   = React.useState(false);
     const [isConfirmDeleteDialog, setConfirmDelete] = React.useState(false);
-    const [currentItem, setItem]                    = React.useState({name: '', index: 0});
     
+    async function handleShelfItemSelect(shelf :AShelf, index :number) {
+        try {
+            const data = await AsyncStorage.getItem(shelf.key);
+            if(data == null) {
+                const shelfdata :Array<Book> = [];
+                    shelfdata.push( statefunction.createBook('demo') );
+                    shelfdata.push( statefunction.createBook('demo 2') );
+                    shelfdata[0].files.push( statefunction.createFile('file1') );
+                    shelfdata[0].files.push( statefunction.createFile('file2') );
+                    shelfdata[1].files.push( statefunction.createFile('qwe') );
+                    shelfdata[1].files.push( statefunction.createFile('asd') );
+                    shelfdata[1].files.push( statefunction.createFile('rty') );
+                    shelfdata[1].files.push( statefunction.createFile('ooo') );
+                await AsyncStorage.setItem(shelf.key, JSON.stringify(shelfdata));
+                dispatch( action.books.setBooks(shelfdata) );
+            }
+            else
+                dispatch( action.books.setBooks( JSON.parse(data) ) );
+            dispatch( action.books.setIsOnBooks(true) );
+            navigation.jumpTo('Books');
+        }
+        catch(err) {
+            console.error(err);
+        }
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView style={styles.content}>
-                <ListOfShelfs
-                   onOptionPressed={(index :number) => {
-                       setShowOptionDialog(true);
-                       setItem({ name: state.listOfShelfs[index].name, index: index });
-                   }}
-                   onOpenBooks={() => 
-                        navigation.jumpTo('Books')
-                   }
+                <ListOfItems
+                    items={state.listOfShelfs}
+                    onOptionPressed={(index :number) => {
+                        setShowOptionDialog(true);
+                        setItem({ name: state.listOfShelfs[index].name, index: index });
+                    }}
+                    onItemSelected={handleShelfItemSelect}
+                    itemIcon={ () => {
+                        return <MaterialCommunityIcons name="bookshelf" size={32} color='lightblue' />
+                    }}
                 />
+                
                 <AddShelfBtn onPress={() => setShowAddDialog(true)} />
             </ScrollView>
             

@@ -16,6 +16,9 @@ export function CreateDefaultState() :StateInterface {
         shelf: [
             //Functions.createBook('sample 1'),
             //Functions.createBook('sample 2')
-        ]
+        ],
+        isOnBooks: true,
+        selectedBook: 0,
+        selectedPage: 0,
     }
 }

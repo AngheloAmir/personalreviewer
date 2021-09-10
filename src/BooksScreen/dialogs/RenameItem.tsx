@@ -14,14 +14,14 @@ import DialogBox from '../../Utility/DialogBox';
 import { contextProvider, StateAPI, action } from '../../StateAPI';
 
 interface propsReceive {
-    shelfname   :string;
+    itemname    :string;
     index       :number;
     onclose     :() => void;
 }
 
-export default function RenameShelf(props :propsReceive) {
+export default function RenameItem(props :propsReceive) {
     const { dispatch } :StateAPI    = React.useContext(contextProvider);
-    const [shelfname, setname]      = React.useState(props.shelfname);
+    const [shelfname, setname]      = React.useState(props.itemname);
 
     function handleOnOk() {
         if(!shelfname || shelfname.trim().length < 1 ) return;
@@ -31,7 +31,7 @@ export default function RenameShelf(props :propsReceive) {
 
     return (
         <DialogBox
-            title={'Rename ' + props.shelfname}
+            title={'Rename ' + props.itemname}
             isshow={true}
             ok={handleOnOk}
             cancel={props.onclose}
@@ -58,7 +58,7 @@ function DialogContent( props :dialogContentProps ) {
                     fontSize: 16,
                     padding: 8,
                     color: 'white',
-                    marginBottom: 8,
+                    marginBottom: 16
                 }}
             />
         </View>

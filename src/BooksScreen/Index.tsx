@@ -7,21 +7,34 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 import BooksInitialScreen from './BookScreen';
+import PageScreen from './PageScreen';
 
 export default function BooksScreenIndex() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="BooksScreen" component={BookScreenContainer} options={{headerShown: false}} />
+            <Stack.Screen name="PageScreen"  component={PageContainer} options={{headerShown: false}} />
         </Stack.Navigator>
     );
 }
 
+import GlobalStyle from '../Utility/GloabalStyles';
 import Topbar from '../TopBar';
+
 function BookScreenContainer({navigation} :any) {
   return (
-    <View style={{flex: 1}}>
-      <Topbar title='Menu' navigation={navigation} />
-      <BooksInitialScreen />
+    <View style={{flex: 1, backgroundColor: GlobalStyle.defaultBackgroundColor}}>
+      <Topbar title='Books' navigation={navigation} />
+      <BooksInitialScreen navigation={navigation} />
+    </View>
+  )
+}
+
+function PageContainer({navigation} :any) {
+  return (
+    <View style={{flex: 1, backgroundColor: GlobalStyle.defaultBackgroundColor}}>
+      <Topbar title='Pages' navigation={navigation} />
+      <PageScreen />
     </View>
   )
 }

@@ -16,10 +16,13 @@ export default function RootReducer(state :StateInterface, action :ActionInterfa
             return ShelfReducer(state, action);
         
         case actionType.setBooks:
+        case actionType.setIsOnBooks:
+        case actionType.setSelectedBook:
+        case actionType.setSelectedPage:
             return BooksReducer(state, action);
 
         default:
-            console.error('ACTION NOT DEFINED IN THE REDUCER');
+            console.error('ACTION NOT DEFINED IN THE ROOT REDUCER');
             return state;
     }
 }

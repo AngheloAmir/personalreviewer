@@ -13,5 +13,8 @@ export enum actionType {
     renameShelf,
     deleteShelfItem,
 
+    setIsOnBooks,
     setBooks,
+    setSelectedBook,
+    setSelectedPage,
 }

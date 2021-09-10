@@ -6,7 +6,8 @@
         Show option dialog box to the user screen
 
     * VISIBLE WHEN
-        The user pressed the ... in the right side of the shelf name
+        The user pressed the ... in the right side of the shelf name. This dialog is shared and will be used by the
+        BookScreen and PageScreen component.
 */
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
@@ -42,9 +43,29 @@ export default function OptionsDialog(props :propsReceive) {
 function DialogContent( {close, onRenameSelect, onDeleteSelect} :any ) {
     return (
         <View>
+            <TouchableOpacity style={styles.item}>
+                <MaterialCommunityIcons name='information' size={32} color='lightgreen' />
+                <Text style={styles.itemtext}>Info</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity style={styles.item} onPress={() => { onRenameSelect(); close() }}>
                 <MaterialCommunityIcons name='rename-box' size={32} color='lightgreen' />
                 <Text style={styles.itemtext}>Rename</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.item}>
+                <MaterialCommunityIcons name='arrow-up-circle' size={32} color='lightgreen' />
+                <Text style={styles.itemtext}>Move Up</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.item}>
+                <MaterialCommunityIcons name='arrow-down-circle' size={32} color='lightgreen' />
+                <Text style={styles.itemtext}>Move Down</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.item}>
+                <MaterialCommunityIcons name='sort-alphabetical-ascending' size={32} color='lightgreen' />
+                <Text style={styles.itemtext}>Sort all</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.item} onPress={() => { onDeleteSelect(); close() }}>
@@ -52,10 +73,7 @@ function DialogContent( {close, onRenameSelect, onDeleteSelect} :any ) {
                 <Text style={styles.itemtext}>Delete</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item}>
-                <MaterialCommunityIcons name='file-export' size={32} color='lightgreen' />
-                <Text style={styles.itemtext}>Export this shelf</Text>
-            </TouchableOpacity>
+
         </View>
     );
 }
