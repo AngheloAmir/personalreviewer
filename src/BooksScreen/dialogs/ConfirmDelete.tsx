@@ -25,7 +25,7 @@ export default function ConfirmDelete(props :propsReceive) {
    const { dispatch } :StateAPI    = React.useContext(contextProvider);
 
     function handleOnOk() {
-        dispatch( action.shelf.delete(props.index) );
+        
         props.onclose();
     }
 

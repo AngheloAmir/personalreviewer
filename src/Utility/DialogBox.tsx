@@ -26,6 +26,7 @@ export interface propsReceive {
 
 export default function DialogBox( props :propsReceive ) {
     if(!props.isshow) return <View style={{position: 'absolute'}}></View>;
+    const ref :any = React.useRef(null);
 
     const WIDTH     = 320;
     const HEIGHT    = 300;
@@ -33,13 +34,14 @@ export default function DialogBox( props :propsReceive ) {
         container: {
             width: WIDTH,
             position: 'absolute',
-            top:  ((WindowDimension.height - HEIGHT) / 2) - 70,
+            top:  10,
             left: ((WindowDimension.width - WIDTH) /2),
             backgroundColor: '#333',
             borderWidth: 1,
             borderRadius: 8,
             padding: 8,
             zIndex: 100,
+            opacity: 0
         },
         containerFixedHeight: {
             width: WIDTH,
@@ -52,6 +54,7 @@ export default function DialogBox( props :propsReceive ) {
             borderRadius: 8,
             padding: 8,
             zIndex: 100,
+            opacity: 0
         },
         content: {
         },
@@ -103,6 +106,14 @@ export default function DialogBox( props :propsReceive ) {
             borderRadius: 4,
         }
     });
+    
+    React.useEffect(() => {
+        ref.current.setNativeProps({
+            style:{
+                top: ((WindowDimension.height - ref.current.clientHeight) / 3) ,
+                opacity: 1
+        }})
+    }, []);
 
     //find out what are the button appear in the bottom based if that button is available or not
     function getBtnOptions() {
@@ -141,7 +152,7 @@ export default function DialogBox( props :propsReceive ) {
                 width: WindowDimension.width, height: WindowDimension.height - 50,
                 top: 0, backgroundColor: 'rgba(0 , 0, 15, .5)'}}>
             </View>
-            <View style={props.isScrolledContent ? styles.containerFixedHeight : styles.container}>
+            <View style={props.isScrolledContent ? styles.containerFixedHeight : styles.container} ref={ref}>
                 <View style={props.isScrolledContent ? styles.contentFixedHeight : styles.content}>
                     <Text style={styles.title}>{props.title}</Text>
                     <View style={styles.borderline}></View>

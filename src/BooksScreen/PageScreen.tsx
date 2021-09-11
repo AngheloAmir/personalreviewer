@@ -20,6 +20,11 @@ const PageIcon = require('../../assets/page.png');
 
 export default function PageScreen() {
     const { state, dispatch }: StateAPI = React.useContext(contextProvider);
+    const [selectedPage, setSelected]               = React.useState(0);
+    const [isShowAddDialog, setShowAddDialog]       = React.useState(false);
+    const [isShowOptionDialog, setShowOptionDialog] = React.useState(false);
+    const [isRenameOptionDialog, setRenameDialog]   = React.useState(false);
+    const [isConfirmDeleteDialog, setConfirmDelete] = React.useState(false);
 
     function handleItemPressed(item :any, index :number) {
     }

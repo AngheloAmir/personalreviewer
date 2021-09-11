@@ -15,6 +15,7 @@ import { Image, View, StyleSheet, ScrollView } from 'react-native';
 import { contextProvider, StateAPI, action } from '../StateAPI';
 import ListOfItems from '../Utility/ListOfItems';
 
+import AlertBox from '../Utility/AlertBox';
 import AddItem from './components/AddItem';
 import OptionsDialog from './dialogs/Options';
 import ConfirmDelete from './dialogs/ConfirmDelete';
@@ -29,6 +30,7 @@ export default function BookScreen({navigation} :any) {
     const [isShowOptionDialog, setShowOptionDialog] = React.useState(false);
     const [isRenameOptionDialog, setRenameDialog]   = React.useState(false);
     const [isConfirmDeleteDialog, setConfirmDelete] = React.useState(false);
+    const [isInfoShow, setInfo]                     = React.useState({show: false, text: ''});
 
     function handleItemPressed(item :any, index :number) {
         dispatch( action.books.setSelectedBook(index) );
@@ -59,6 +61,12 @@ export default function BookScreen({navigation} :any) {
                 cancel={() => setShowOptionDialog(false)}
                 onRenameSelect={() => setRenameDialog(true)}
                 onDeleteSelect={() => setConfirmDelete(true)}
+                onInfoSelect={() =>
+                    setInfo({
+                        show: true,
+                        text: `Created: ${state.shelf[selectedBook].date}\nLast Modified: ${state.shelf[selectedBook].lastmod}`
+                    })
+                }
             />
 
             { isConfirmDeleteDialog &&
@@ -70,11 +78,18 @@ export default function BookScreen({navigation} :any) {
             }
 
             { isRenameOptionDialog &&
-                <RenameItem
+            <RenameItem
                 itemname={state.shelf[selectedBook].name}
                 index={selectedBook}
                 onclose={() => setRenameDialog(false)}
             /> }
+
+            <AlertBox
+                title={state.shelf[selectedBook].name}
+                text={isInfoShow.text}
+                isshow={isInfoShow.show}
+                ok={() => setInfo({show: false, text: ''})}
+            />
 
 
         </View>

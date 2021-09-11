@@ -21,6 +21,7 @@ interface propsReceive {
     cancel               :() => void;
     onRenameSelect       :() => void;
     onDeleteSelect       :() => void;
+    onInfoSelect         :() => void;
 }
 
 export default function OptionsDialog(props :propsReceive) {
@@ -34,16 +35,17 @@ export default function OptionsDialog(props :propsReceive) {
                     close={props.cancel}
                     onRenameSelect={props.onRenameSelect}
                     onDeleteSelect={props.onDeleteSelect}
+                    onInfoSelect={props.onInfoSelect}
                 />
             }
         />
     );
 }
 
-function DialogContent( {close, onRenameSelect, onDeleteSelect} :any ) {
+function DialogContent( {close, onRenameSelect, onDeleteSelect, onInfoSelect} :any ) {
     return (
         <View>
-            <TouchableOpacity style={styles.item}>
+            <TouchableOpacity style={styles.item} onPress={() => { onInfoSelect(); close() }}>
                 <MaterialCommunityIcons name='information' size={32} color='lightgreen' />
                 <Text style={styles.itemtext}>Info</Text>
             </TouchableOpacity>
