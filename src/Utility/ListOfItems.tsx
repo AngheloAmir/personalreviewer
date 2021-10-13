@@ -28,12 +28,13 @@ interface propsReceive {
 }
 
 export default function ListOfItems( props :propsReceive ) {
+    if(!props.items || props.items.length <= 0)
+        return <View></View>
+        
     return (
         <View style={{marginBottom: 4}}>
         {
-            props.items !== undefined   &&
-            props.items.length > 0      &&
-            props.items.map((item :{name :string} | any, index :number) => {
+            props.items.map((item :{name :string}, index :number) => {
                 return (
                     <View key={index} style={styles.container}>
                         <TouchableOpacity style={styles.item} onPress={() => props.onItemSelected(item, index) }>

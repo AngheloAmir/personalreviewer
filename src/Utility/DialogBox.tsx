@@ -26,22 +26,26 @@ export interface propsReceive {
 
 export default function DialogBox( props :propsReceive ) {
     if(!props.isshow) return <View style={{position: 'absolute'}}></View>;
-    const ref :any = React.useRef(null);
 
+    //This state is use to set the top position of the dialog box after it is rendered (after height is calculated)
+    //so it will appear in the middle of the screen
+    //by default, the opacity is set to 0 so the repositioning of the dialog will not be notice by the user
+    const [position, setPosition] = React.useState({opacity: 0, top: 0});
     const WIDTH     = 320;
     const HEIGHT    = 300;
+
     const styles = StyleSheet.create({
         container: {
             width: WIDTH,
             position: 'absolute',
-            top:  10,
             left: ((WindowDimension.width - WIDTH) /2),
             backgroundColor: '#333',
             borderWidth: 1,
             borderRadius: 8,
             padding: 8,
             zIndex: 100,
-            opacity: 0
+            opacity: position.opacity, 
+            top: position.top
         },
         containerFixedHeight: {
             width: WIDTH,
@@ -54,7 +58,7 @@ export default function DialogBox( props :propsReceive ) {
             borderRadius: 8,
             padding: 8,
             zIndex: 100,
-            opacity: 0
+            opacity: position.opacity
         },
         content: {
         },
@@ -106,14 +110,13 @@ export default function DialogBox( props :propsReceive ) {
             borderRadius: 4,
         }
     });
-    
-    React.useEffect(() => {
-        ref.current.setNativeProps({
-            style:{
-                top: ((WindowDimension.height - ref.current.clientHeight) / 3) ,
-                opacity: 1
-        }})
-    }, []);
+
+    //This function reposition the dialog box
+    function onLayoutView(event :any) {
+        const { height } = event.nativeEvent.layout;
+        const top        = (WindowDimension.height - height) / 3;
+        setPosition({opacity: 1, top: top});
+    }
 
     //find out what are the button appear in the bottom based if that button is available or not
     function getBtnOptions() {
@@ -149,10 +152,11 @@ export default function DialogBox( props :propsReceive ) {
     return (
         <View style={{position: 'absolute', zIndex: 90}}>
             <View style={{
-                width: WindowDimension.width, height: WindowDimension.height - 50,
+                width: WindowDimension.width,
+                height: WindowDimension.height - 50,
                 top: 0, backgroundColor: 'rgba(0 , 0, 15, .5)'}}>
             </View>
-            <View style={props.isScrolledContent ? styles.containerFixedHeight : styles.container} ref={ref}>
+            <View style={props.isScrolledContent ? styles.containerFixedHeight : styles.container} onLayout={onLayoutView}>
                 <View style={props.isScrolledContent ? styles.contentFixedHeight : styles.content}>
                     <Text style={styles.title}>{props.title}</Text>
                     <View style={styles.borderline}></View>

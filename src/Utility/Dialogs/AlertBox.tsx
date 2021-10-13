@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "react-native";
-import DialogBoxWindow from './DialogBox';
+import DialogBoxWindow from '../DialogBox';
 
 export interface propsReceive {
     title    :string;

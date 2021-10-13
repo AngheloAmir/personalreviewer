@@ -10,8 +10,7 @@
 */
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import DialogBox from '../../Utility/DialogBox';
-import { contextProvider, StateAPI, action } from '../../StateAPI';
+import DialogBox from '../DialogBox';
 
 interface propsReceive {
     show    :boolean;
@@ -19,14 +18,18 @@ interface propsReceive {
     ok      :() => void;
 }
 
-export default function AddNewShelfDialog(props :propsReceive) {
-    const { dispatch } :StateAPI    = React.useContext(contextProvider);
-    const [shelfname, setname]      = React.useState('');
+interface dialogContentProps {
+    shelfname   :string;
+    setname     :(name :string) => void;
+}
+
+export default function TextfieldBox(props :propsReceive) {
+    const [shelfname, setname] = React.useState('');
 
     function handleOnOk() {
         if(!shelfname || shelfname.length < 1 ) return;
         const shelfn = shelfname.trim();
-        dispatch( action.shelf.add({name: shelfn, key: '' + Date.now() }) );
+        //dispatch( action.shelf.add({name: shelfn, key: '' + Date.now() }) );
         setname('');
         props.ok();
     }
@@ -45,11 +48,6 @@ export default function AddNewShelfDialog(props :propsReceive) {
             dialogContent={ () => <DialogContent shelfname={shelfname} setname={setname} /> }
         />
     );
-}
-
-interface dialogContentProps {
-    shelfname   :string;
-    setname     :(name :string) => void;
 }
 
 function DialogContent( props :dialogContentProps ) {
@@ -71,7 +69,7 @@ function DialogContent( props :dialogContentProps ) {
     );
 }
 
-import GlobalStyle from '../../Utility/GloabalStyles';
+import GlobalStyle from '../GloabalStyles';
 const styles = StyleSheet.create({
     itemtext: {
         fontSize:   GlobalStyle.fontsize,

@@ -15,7 +15,7 @@ import { Image, View, StyleSheet, ScrollView } from 'react-native';
 import { contextProvider, StateAPI, action } from '../StateAPI';
 import ListOfItems from '../Utility/ListOfItems';
 
-import AlertBox from '../Utility/AlertBox';
+import AlertBox from '../Utility/Dialogs/AlertBox';
 import AddItem from './components/AddItem';
 import OptionsDialog from './dialogs/Options';
 import ConfirmDelete from './dialogs/ConfirmDelete';

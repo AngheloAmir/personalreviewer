@@ -22,10 +22,11 @@ export default function App() {
     async function loadSaveListOfShelf() {
       try {
         const savestate :any = await AsyncStorage.getItem('savestates');
-        if(savestate == null) 
-          await AsyncStorage.setItem('savestates', JSON.stringify({
-            listOfShelfs: [ { name: 'demo', key: '' + Date.now() } ]
-          }));
+        if(savestate == null) {
+          const newListOfShelf = [{ name: 'demo', key: '' + Date.now() }];
+          await AsyncStorage.setItem('savestates', JSON.stringify(newListOfShelf));
+          dispatch( action.shelf.setList( newListOfShelf ));
+        }
         else 
           dispatch( action.shelf.setList( JSON.parse(savestate) ) );
         }
@@ -36,9 +37,6 @@ export default function App() {
     loadSaveListOfShelf();
   }, []);
 
-
-
-
   return (
     <View style={styles.app}>
       <StatusBar barStyle='default'/>
@@ -47,7 +45,7 @@ export default function App() {
         </contextProvider.Provider>		
     </View>
   );
-}//
+}
 
 import GlobalStyle from './src/Utility/GloabalStyles';
 const styles = StyleSheet.create({

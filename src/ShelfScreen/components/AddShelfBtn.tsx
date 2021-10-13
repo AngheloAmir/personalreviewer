@@ -1,6 +1,6 @@
 /*
     * TYPE
-        Fragment of src/ShelfScreen/ShelfScreen - A fragment is a piece of component that is
+        Fragment of src/ShelfScreen/ListOfShelf - A fragment is a piece of component that is
             part of a scene
 
     * DESCRIPTION
