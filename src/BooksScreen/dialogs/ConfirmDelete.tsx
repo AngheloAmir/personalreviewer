@@ -53,7 +53,7 @@ function DialogContent( props :dialogContentProps ) {
     );
 }
 
-import GlobalStyle from '../../Utility/GloabalStyles';
+import GlobalStyle from '../../Utility/GlobalStyles';
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',

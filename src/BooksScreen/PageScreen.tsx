@@ -45,7 +45,7 @@ export default function PageScreen() {
 }
 
 //STYLING===========================================================================
-import GlobalStyle from '../Utility/GloabalStyles';
+import GlobalStyle from '../Utility/GlobalStyles';
 import { WindowDimension } from '../Utility/useResponsive';
 const styles = StyleSheet.create({
     container: {

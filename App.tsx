@@ -2,7 +2,6 @@
   The main entry component file.
   * It set up the global state and provide context provider to be used.
   * It display the main view (the initial screen the user would see)
-  * Also, it handle the custom made alert box easier.
 */
 import React from 'react';
 import { View, StatusBar, StyleSheet } from 'react-native';
@@ -47,7 +46,7 @@ export default function App() {
   );
 }
 
-import GlobalStyle from './src/Utility/GloabalStyles';
+import GlobalStyle from './src/Utility/GlobalStyles';
 const styles = StyleSheet.create({
   app: {
     flex: 1,

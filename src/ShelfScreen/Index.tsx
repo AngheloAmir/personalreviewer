@@ -14,7 +14,7 @@ import { View } from 'react-native';
 
 import ShelfScreenInitial from './ShelfScreen';
 import Topbar from '../TopBar';
-import GlobalStyle from '../Utility/GloabalStyles';
+import GlobalStyle from '../Utility/GlobalStyles';
 
 export default function ShelfScreenContainer({navigation} :any) {
   

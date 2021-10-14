@@ -81,7 +81,7 @@ export default function DialogBox( props :propsReceive ) {
             borderTopWidth: 2,
             borderColor: 'white',
             marginTop: 6, flexDirection: 'row',
-            paddingTop: 2,
+            paddingTop: 8,
         },
         buttonCancel: {
             width: 280/2, 

@@ -1,62 +1,53 @@
 /*
-    * TYPE
-        Dialog Box - A Dialog Box is a component that over takes the current scene without replacing it.
-
-    * DESCRIPTION
-        Show the add new shelf dialog box to user using DialogBox from utilities
-
-    * VISIBLE WHEN
-        The user pressed add shelf button in the screen
+    Work same as the DialogBox component but providing text field in as the content
 */
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import DialogBox from '../DialogBox';
 
 interface propsReceive {
-    show    :boolean;
-    cancel  :() => void;
-    ok      :() => void;
-}
-
-interface dialogContentProps {
-    shelfname   :string;
-    setname     :(name :string) => void;
+    show            :boolean;
+    title           :string;
+    display         :string;
+    cancel          :() => void;
+    ok              :(text :string) => void;
+    initialText?    :string;
 }
 
 export default function TextfieldBox(props :propsReceive) {
-    const [shelfname, setname] = React.useState('');
+    const inittext = props.initialText ? props.initialText : '';
+    const [textvalue, settext] = React.useState(inittext);
 
     function handleOnOk() {
-        if(!shelfname || shelfname.length < 1 ) return;
-        const shelfn = shelfname.trim();
-        //dispatch( action.shelf.add({name: shelfn, key: '' + Date.now() }) );
-        setname('');
-        props.ok();
+        if(!textvalue || textvalue.length < 1 ) return;
+        const trimmedText = textvalue.trim();
+        settext('');
+        props.ok(trimmedText);
     }
 
     function handleCancel() {
-        setname('');
+        settext('');
         props.cancel();
     }
 
     return (
         <DialogBox
-            title='Add New Shelf'
+            title={props.title}
             isshow={props.show}
             ok={handleOnOk}
             cancel={handleCancel}
-            dialogContent={ () => <DialogContent shelfname={shelfname} setname={setname} /> }
+            dialogContent={ () => <DialogContent text={textvalue} settext={settext} dis={props.display} /> }
         />
     );
 }
 
-function DialogContent( props :dialogContentProps ) {
+function DialogContent( props :{text :string; settext:(name :string) => void; dis :string} ) {
     return (
         <View>
-            <Text style={styles.itemtext}>Please enter new shelf name: </Text>
+            <Text style={styles.itemtext}>{props.dis}</Text>
             <TextInput
-                value={props.shelfname}
-                onChangeText={ text => props.setname(text)}
+                value={props.text}
+                onChangeText={ text => props.settext(text)}
                 style={{
                     borderColor: 'white',
                     borderWidth: 1,
@@ -69,7 +60,7 @@ function DialogContent( props :dialogContentProps ) {
     );
 }
 
-import GlobalStyle from '../GloabalStyles';
+import GlobalStyle from '../GlobalStyles';
 const styles = StyleSheet.create({
     itemtext: {
         fontSize:   GlobalStyle.fontsize,

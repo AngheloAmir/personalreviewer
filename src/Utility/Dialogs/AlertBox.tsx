@@ -1,6 +1,10 @@
+/*
+    Work same as the DialogBox but providing an alert icon and text as the content
+*/
 import React from "react";
-import { Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import DialogBoxWindow from '../DialogBox';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export interface propsReceive {
     title    :string;
@@ -24,12 +28,25 @@ export default function AlertBox(props :propsReceive) {
 
 function dialogContent(text :string) {
     return (
-        <Text style={{
-            fontSize: 18,
-            lineHeight: 26,
-            paddingHorizontal: 8,
-            paddingVertical: 8,
-            color: 'white'}}
-        >{text}</Text>
+        <View style={styles.container}>
+            <MaterialCommunityIcons name="alert-rhombus" size={72} color="#f55" />
+            <Text style={styles.itemtext}>{text}</Text>
+        </View>
     )
 }
+
+import GlobalStyle from '../GlobalStyles';
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        marginTop: 8,
+    },
+    itemtext: {
+        fontSize:   GlobalStyle.fontsize,
+        color:      GlobalStyle.fontcolor,
+        marginLeft: 8,
+        marginBottom: 16,
+        marginTop: 8,
+        textAlign: 'center',
+    }
+});

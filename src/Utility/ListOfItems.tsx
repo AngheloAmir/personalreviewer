@@ -53,7 +53,7 @@ export default function ListOfItems( props :propsReceive ) {
     );
 }
 
-import GlobalStyle from './GloabalStyles';
+import GlobalStyle from './GlobalStyles';
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',

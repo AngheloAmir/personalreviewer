@@ -9,9 +9,8 @@
         The user pressed add shelf button in the screen
 */
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import DialogBox from '../../Utility/DialogBox';
 import { contextProvider, StateAPI, action } from '../../StateAPI';
+import TextfieldBox from '../../Utility/Dialogs/TextfieldBox';
 
 interface propsReceive {
     show    :boolean;
@@ -21,62 +20,19 @@ interface propsReceive {
 
 export default function AddNewShelfDialog(props :propsReceive) {
     const { dispatch } :StateAPI    = React.useContext(contextProvider);
-    const [shelfname, setname]      = React.useState('');
 
-    function handleOnOk() {
-        if(!shelfname || shelfname.length < 1 ) return;
-        const shelfn = shelfname.trim();
-        dispatch( action.shelf.add({name: shelfn, key: '' + Date.now() }) );
-        setname('');
+    function handleOnOk(text :string) {
+        dispatch( action.shelf.add({name: text, key: '' + Date.now() }) );
         props.ok();
     }
 
-    function handleCancel() {
-        setname('');
-        props.cancel();
-    }
-
     return (
-        <DialogBox
+        <TextfieldBox
             title='Add New Shelf'
-            isshow={props.show}
+            display='Please enter new shelf name: '
+            show={props.show}
             ok={handleOnOk}
-            cancel={handleCancel}
-            dialogContent={ () => <DialogContent shelfname={shelfname} setname={setname} /> }
+            cancel={() => props.cancel()}
         />
     );
 }
-
-interface dialogContentProps {
-    shelfname   :string;
-    setname     :(name :string) => void;
-}
-
-function DialogContent( props :dialogContentProps ) {
-    return (
-        <View>
-            <Text style={styles.itemtext}>Please enter new shelf name: </Text>
-            <TextInput
-                value={props.shelfname}
-                onChangeText={ text => props.setname(text)}
-                style={{
-                    borderColor: 'white',
-                    borderWidth: 1,
-                    fontSize: 16,
-                    padding: 8,
-                    color: 'white',
-                }}
-            />
-        </View>
-    );
-}
-
-import GlobalStyle from '../../Utility/GloabalStyles';
-const styles = StyleSheet.create({
-    itemtext: {
-        fontSize:   GlobalStyle.fontsize,
-        color:      GlobalStyle.fontcolor,
-        marginLeft: 8,
-        marginBottom: 16,
-    }
-});

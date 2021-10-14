@@ -4,7 +4,7 @@
             part of a scene
 
     * DESCRIPTION
-        
+        Show the list of available shelf
 
     * VISIBLE WHEN
         When the user is at the Shelf scene

@@ -3,7 +3,7 @@
 */
 import * as React from 'react';
 import { View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 import BooksInitialScreen from './BookScreen';
@@ -18,12 +18,10 @@ export default function BooksScreenIndex() {
     );
 }
 
-import GlobalStyle from '../Utility/GloabalStyles';
 import Topbar from '../TopBar';
-
 function BookScreenContainer({navigation} :any) {
   return (
-    <View style={{flex: 1, backgroundColor: GlobalStyle.defaultBackgroundColor}}>
+    <View>
       <Topbar title='Books' navigation={navigation} />
       <BooksInitialScreen navigation={navigation} />
     </View>
@@ -32,7 +30,7 @@ function BookScreenContainer({navigation} :any) {
 
 function PageContainer({navigation} :any) {
   return (
-    <View style={{flex: 1, backgroundColor: GlobalStyle.defaultBackgroundColor}}>
+    <View>
       <Topbar title='Pages' navigation={navigation} />
       <PageScreen />
     </View>

@@ -60,7 +60,7 @@ function DialogContent( {close, onRenameSelect, onDeleteSelect} :any ) {
     );
 }
 
-import GlobalStyle from '../../Utility/GloabalStyles';
+import GlobalStyle from '../../Utility/GlobalStyles';
 const styles = StyleSheet.create({
     item: {
         flexDirection: 'row',

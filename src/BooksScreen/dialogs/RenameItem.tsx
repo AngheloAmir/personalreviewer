@@ -65,7 +65,7 @@ function DialogContent( props :dialogContentProps ) {
     );
 }
 
-import GlobalStyle from '../../Utility/GloabalStyles';
+import GlobalStyle from '../../Utility/GlobalStyles';
 const styles = StyleSheet.create({
     itemtext: {
         fontSize:   GlobalStyle.fontsize,

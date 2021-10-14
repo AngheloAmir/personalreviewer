@@ -97,7 +97,7 @@ export default function BookScreen({navigation} :any) {
 }
 
 //STYLING===========================================================================
-import GlobalStyle from '../Utility/GloabalStyles';
+import GlobalStyle from '../Utility/GlobalStyles';
 import { WindowDimension } from '../Utility/useResponsive';
 const styles = StyleSheet.create({
     container: {

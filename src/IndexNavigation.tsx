@@ -13,12 +13,16 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import ShelfScreenIndex     from './ShelfScreen/Index';
 import HomeScreenIndex      from './BooksScreen/Index';
+import GlobalStyle          from './Utility/GlobalStyles';
 
 export default function Index() {
   const Drawer = createDrawerNavigator();
   
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={
+      //@ts-ignore
+      { colors: { background: GlobalStyle.defaultBackgroundColor }}
+      }>
       <Drawer.Navigator
         screenOptions={{headerShown: false}}
         drawerContent={props => (
