@@ -12,16 +12,39 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-import ShelfScreenInitial from './ShelfScreen';
 import Topbar from '../TopBar';
 import GlobalStyle from '../Utility/GlobalStyles';
+import ListOfShelfs     from './components/ListOfShelf';
+import ShelfDialogs     from './components/ShelfDialogs';
 
-export default function ShelfScreenContainer({navigation} :any) {
-  
+export default function Index({navigation} :any) {
+  const [currentItem, setItem]                    = React.useState({name: '', index: 0});
+  const [isShowAddDialog, setShowAddDialog]       = React.useState(false);
+  const [isShowOptionDialog, setShowOptionDialog] = React.useState(false);
+  const [isRenameOptionDialog, setRenameDialog]   = React.useState(false);
+  const [isConfirmDeleteDialog, setConfirmDelete] = React.useState(false);
+
   return (
-    <View style={{flex: 1, backgroundColor: GlobalStyle.defaultBackgroundColor}}>
+    <View style={{backgroundColor: GlobalStyle.defaultBackgroundColor}}>
       <Topbar title='Menu' navigation={navigation} />
-      <ShelfScreenInitial navigation={navigation} />
+      <ListOfShelfs
+          navigation={navigation}
+          setShowOptionDialog={(show) => setShowOptionDialog(show)}
+          setItem={setItem}
+          setShowAddDialog={(show) => setShowAddDialog(show)}
+      />
+      <ShelfDialogs
+        currentItem={currentItem}
+        setItem={setItem}
+        isShowAddDialog={isShowAddDialog}
+        isShowOptionDialog={isShowOptionDialog}
+        isRenameOptionDialog={isRenameOptionDialog}
+        isConfirmDeleteDialog={isConfirmDeleteDialog}
+        setShowAddDialog={setShowAddDialog}
+        setShowOptionDialog={setShowOptionDialog}
+        setRenameDialog={setRenameDialog}
+        setConfirmDelete={setConfirmDelete}
+    />
     </View>
   )
 }

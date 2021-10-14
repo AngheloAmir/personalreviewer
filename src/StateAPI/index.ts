@@ -1,6 +1,23 @@
 /*
     Provides the state (context provider), interface, and mechanism to control the
     current global state of the app.
+
+EXAMPLE USAGE====================================================================================
+    import { contextProvider, action, StateAPI } from '.......StateAPI';
+    import { useContext } from 'react';
+    import { View, Text } from 'react-native';
+
+    export default function component() {
+        const [state, dispatch] :StateAPI = React.useContext(contextProvider);
+        return (
+            <View>
+                <Text>Selected book index: {state.selectedShelf}</Text>
+                <Button title="update selected shelf to demoahh" onpress={() => {
+                    dispatch( action.selectedBook(state.selectedBook + 1) );
+                }}
+            </View>
+        )
+    }
 */
 import React from 'react';
 import { ContextProvider, CreateDefaultState } from './State';

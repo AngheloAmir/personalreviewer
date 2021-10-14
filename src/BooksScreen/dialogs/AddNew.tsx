@@ -9,69 +9,30 @@
         
 */
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import DialogBox from '../../Utility/DialogBox';
+
 import { contextProvider, StateAPI, action } from '../../StateAPI';
+import { LocalStateAPI, localContextProvider, localAction } from '../localStateAPI';
+import TextfieldBox from '../../Utility/Dialogs/TextfieldBox';
 
 interface propsReceive {
-    show    :boolean;
-    cancel  :() => void;
-    ok      :() => void;
+    isOnBooks   :boolean;
 }
 
 export default function AddNew(props :propsReceive) {
-    const { dispatch } :StateAPI    = React.useContext(contextProvider);
-    const [shelfname, setname]      = React.useState('');
+    const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider)
 
-    function handleOnOk() {
-        if(!shelfname || shelfname.length < 1 ) return;
-        const shelfn = shelfname.trim();
-        dispatch( action.shelf.add({name: shelfn, key: '' + Date.now() }) );
-        setname('');
-        props.ok();
+    function handleAdd() {
+        localDispatch( localAction.showDialogAdd(false) );
+        console.log('Adding');
     }
 
     return (
-        <DialogBox
-            title='Add New Shelf'
-            isshow={props.show}
-            ok={handleOnOk}
-            cancel={props.cancel}
-            dialogContent={ () => <DialogContent shelfname={shelfname} setname={setname} /> }
+        <TextfieldBox
+            title={ props.isOnBooks ? 'Add new book' : 'Add new page' }
+            show={localState.showDialogAdd}
+            ok={handleAdd}
+            cancel={() => localDispatch( localAction.showDialogAdd(false))}
+            display={'Enter the name'}
         />
     );
 }
-
-interface dialogContentProps {
-    shelfname   :string;
-    setname     :(name :string) => void;
-}
-
-function DialogContent( props :dialogContentProps ) {
-    return (
-        <View>
-            <Text style={styles.itemtext}>Please enter new shelf name: </Text>
-            <TextInput
-                value={props.shelfname}
-                onChangeText={ text => props.setname(text)}
-                style={{
-                    borderColor: 'white',
-                    borderWidth: 1,
-                    fontSize: 16,
-                    padding: 8,
-                    color: 'white',
-                }}
-            />
-        </View>
-    );
-}
-
-import GlobalStyle from '../../Utility/GlobalStyles';
-const styles = StyleSheet.create({
-    itemtext: {
-        fontSize:   GlobalStyle.fontsize,
-        color:      GlobalStyle.fontcolor,
-        marginLeft: 8,
-        marginBottom: 16,
-    }
-});

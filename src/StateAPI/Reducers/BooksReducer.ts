@@ -25,9 +25,11 @@ export default function BooksReducer(state :StateInterface, action :ActionInterf
             }
         
         case actionType.setSelectedPage:
+            const selectedPage = state.shelf[state.selectedBook].files.length > 0 ?
+                action.payload : -1;
             return {
                 ...state,
-                selectedPage: action.payload
+                selectedPage: selectedPage
             }
 
         default:

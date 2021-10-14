@@ -31,8 +31,9 @@ export default function DialogBox( props :propsReceive ) {
     //so it will appear in the middle of the screen
     //by default, the opacity is set to 0 so the repositioning of the dialog will not be notice by the user
     const [position, setPosition] = React.useState({opacity: 0, top: 0});
-    const WIDTH     = 320;
-    const HEIGHT    = 300;
+    const WIDTH = (WindowDimension.width - (WindowDimension.width / 7)) >  300 ?
+        WindowDimension.width - (WindowDimension.width / 7) : 300;
+    const HEIGHT = 300;
 
     const styles = StyleSheet.create({
         container: {
@@ -51,14 +52,14 @@ export default function DialogBox( props :propsReceive ) {
             width: WIDTH,
             height: HEIGHT,
             position: 'absolute',
-            top:  ((WindowDimension.height - HEIGHT) / 2) - 60,
             left: ((WindowDimension.width - WIDTH) /2),
             backgroundColor: '#333',
             borderWidth: 1,
             borderRadius: 8,
             padding: 8,
             zIndex: 100,
-            opacity: position.opacity
+            opacity: position.opacity,
+            top: position.top
         },
         content: {
         },
@@ -80,17 +81,26 @@ export default function DialogBox( props :propsReceive ) {
         buttonsContainer: {
             borderTopWidth: 2,
             borderColor: 'white',
-            marginTop: 6, flexDirection: 'row',
+            marginTop: 6, 
+            alignItems: 'center',
+            paddingTop: 4,
+        },
+        buttonsContainerFlexed: {
+            //borderTopWidth: 2,
+            //borderColor: 'white',
+            flexDirection: 'row',
+            marginTop: 6, 
             paddingTop: 8,
         },
         buttonCancel: {
-            width: 280/2, 
+            width: (WIDTH - 30)/2, 
         },
         buttonOK: {
-            width: 280/2, 
+            width: (WIDTH - 30)/2, 
         },
         buttonOkOnly: {
-            width: 280,
+            paddingBottom: 8,
+            paddingTop: 2
         },
         buttonText: {
             fontSize: 18,
@@ -114,7 +124,7 @@ export default function DialogBox( props :propsReceive ) {
     //This function reposition the dialog box
     function onLayoutView(event :any) {
         const { height } = event.nativeEvent.layout;
-        const top        = (WindowDimension.height - height) / 3;
+        const top        = (WindowDimension.height - height) / 2.3;
         setPosition({opacity: 1, top: top});
     }
 
@@ -123,7 +133,7 @@ export default function DialogBox( props :propsReceive ) {
         if(props.ok) {
             if(props.cancel) 
                 return (
-                    <View style={styles.buttonsContainer}>
+                    <View style={styles.buttonsContainerFlexed}>
                         <TouchableOpacity style={styles.buttonCancel} onPress={props.cancel}>
                             <Text style={styles.buttonText}>Cancel</Text>
                         </TouchableOpacity>
@@ -151,11 +161,18 @@ export default function DialogBox( props :propsReceive ) {
 
     return (
         <View style={{position: 'absolute', zIndex: 90}}>
-            <View style={{
-                width: WindowDimension.width,
-                height: WindowDimension.height - 50,
-                top: 0, backgroundColor: 'rgba(0 , 0, 15, .5)'}}>
-            </View>
+            <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={() => {
+                    if(props.cancel)  props.cancel();
+                    else if(props.ok) props.ok();
+            }}>
+                <View style={{
+                    width: WindowDimension.width,
+                    height: WindowDimension.height,
+                    top: 0, backgroundColor: 'rgba(0 , 0, 15, .5)'}}>
+                </View>
+            </TouchableOpacity>
             <View style={props.isScrolledContent ? styles.containerFixedHeight : styles.container} onLayout={onLayoutView}>
                 <View style={props.isScrolledContent ? styles.contentFixedHeight : styles.content}>
                     <Text style={styles.title}>{props.title}</Text>

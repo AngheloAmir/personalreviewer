@@ -10,87 +10,62 @@
         BookScreen and PageScreen component.
 */
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import DialogBox from '../../Utility/DialogBox';
+
+import { localContextProvider, LocalStateAPI, localAction } from '../localStateAPI';
+import ListBox from '../../Utility/Dialogs/OptionBox';
+import { StateAPI, contextProvider } from '../../StateAPI';
 
 interface propsReceive {
     currentItemIndex     :number;
     currentItemName      :string;
-    show                 :boolean;
-    cancel               :() => void;
-    onRenameSelect       :() => void;
-    onDeleteSelect       :() => void;
-    onInfoSelect         :() => void;
 }
 
 export default function OptionsDialog(props :propsReceive) {
+    const { state } :StateAPI = React.useContext(contextProvider);
+    const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider);
+
     return (
-        <DialogBox
+        <ListBox
             title={'What to do with ' + props.currentItemName + '?'}
-            isshow={props.show}
-            cancel={props.cancel}
-            dialogContent={ () =>
-                <DialogContent
-                    close={props.cancel}
-                    onRenameSelect={props.onRenameSelect}
-                    onDeleteSelect={props.onDeleteSelect}
-                    onInfoSelect={props.onInfoSelect}
-                />
-            }
+            isshow={localState.showDialogOption}
+            cancel={() => localDispatch( localAction.showDialogOption(false)) }
+            list={[
+                { text: 'Info',         iconname: 'information' },
+                { text: 'Rename',       iconname: 'rename-box' },
+                { text: 'Delete',       iconname: 'delete-forever' },
+                { text: 'Move Up',      iconname: 'arrow-up-circle' },
+                { text: 'Move Down',    iconname: 'arrow-down-circle' },
+                { text: 'Sort',         iconname: 'sort-alphabetical-ascending' },
+            ]}
+            onSelect={(text :string) => {
+                switch(text) {
+                    case 'Info':
+                        const info = state.isOnBooks ?
+                            `Created: ${state.shelf[state.selectedBook].date} \n` +
+                            `Last Modified: ${state.shelf[state.selectedBook].lastmod}` :
+                            `Created: ${state.shelf[state.selectedBook].files[state.selectedPage].date}\n` +
+                            `Last Modifled: ${state.shelf[state.selectedBook].files[state.selectedPage].lastmod}`;
+                        localDispatch( localAction.setDialogInfo(true, info));
+                        break;
+                    case 'Rename':
+                        localDispatch( localAction.showDialogRename(true));
+                        break;
+                    case 'Move Up':
+                        console.log('Pressed up');
+                        break;
+                    case 'Move Down':
+                        console.log('Pressed down');
+                        break;
+                    case 'Sort':
+                        console.log('Pressed sort');
+                        break;
+                    case 'Delete':
+                        localDispatch( localAction.showDialogDelete(true))
+                        break;
+                    default:
+                        break;
+                }
+            }}
         />
     );
 }
-
-function DialogContent( {close, onRenameSelect, onDeleteSelect, onInfoSelect} :any ) {
-    return (
-        <View>
-            <TouchableOpacity style={styles.item} onPress={() => { onInfoSelect(); close() }}>
-                <MaterialCommunityIcons name='information' size={32} color='lightgreen' />
-                <Text style={styles.itemtext}>Info</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.item} onPress={() => { onRenameSelect(); close() }}>
-                <MaterialCommunityIcons name='rename-box' size={32} color='lightgreen' />
-                <Text style={styles.itemtext}>Rename</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.item}>
-                <MaterialCommunityIcons name='arrow-up-circle' size={32} color='lightgreen' />
-                <Text style={styles.itemtext}>Move Up</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.item}>
-                <MaterialCommunityIcons name='arrow-down-circle' size={32} color='lightgreen' />
-                <Text style={styles.itemtext}>Move Down</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.item}>
-                <MaterialCommunityIcons name='sort-alphabetical-ascending' size={32} color='lightgreen' />
-                <Text style={styles.itemtext}>Sort all</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.item} onPress={() => { onDeleteSelect(); close() }}>
-                <MaterialCommunityIcons name='delete-forever' size={32} color='lightgreen' />
-                <Text style={styles.itemtext}>Delete</Text>
-            </TouchableOpacity>
-
-
-        </View>
-    );
-}
-
-import GlobalStyle from '../../Utility/GlobalStyles';
-const styles = StyleSheet.create({
-    item: {
-        flexDirection: 'row',
-        marginVertical: 4,
-        marginLeft: 8,
-    },
-    itemtext: {
-        fontSize:   GlobalStyle.fontsize,
-        color:      GlobalStyle.fontcolor,
-        marginLeft: 12,
-        marginBottom: 16,
-    }
-});

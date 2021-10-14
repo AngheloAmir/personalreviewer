@@ -28,19 +28,18 @@ interface propsReceive {
 export default function ListOfShelfs(props :propsReceive) {
     const { state, dispatch } :StateAPI = React.useContext(contextProvider);
 
+    //Handle when a shelf is selected.
+    //This how it works:
+    //First, it check if the assciated item has key that exist in the async storage
+    //if so load the data (parse in json). if not, create a demo books
+    //and save the content in async storage
     async function handleShelfItemSelect(shelf :AShelf, index :number) {
         try {
             const data = await AsyncStorage.getItem(shelf.key);
             if(data == null) {
                 const shelfdata :Array<Book> = [];
-                    shelfdata.push( statefunction.createBook('demo') );
-                    shelfdata.push( statefunction.createBook('demo 2') );
-                    shelfdata[0].files.push( statefunction.createFile('file1') );
-                    shelfdata[0].files.push( statefunction.createFile('file2') );
-                    shelfdata[1].files.push( statefunction.createFile('qwe') );
-                    shelfdata[1].files.push( statefunction.createFile('asd') );
-                    shelfdata[1].files.push( statefunction.createFile('rty') );
-                    shelfdata[1].files.push( statefunction.createFile('ooo') );
+                shelfdata.push( statefunction.createSample() );
+
                 await AsyncStorage.setItem(shelf.key, JSON.stringify(shelfdata));
                 dispatch( action.books.setBooks(shelfdata) );
             }
@@ -76,7 +75,7 @@ import { WindowDimension } from '../../Utility/useResponsive';
 const styles = StyleSheet.create({
     content: {
         height: WindowDimension.height - 70,
-        width: '90%',
+        width: '88%',
         alignSelf: 'center',
         marginTop: 10,
         paddingBottom: 24,

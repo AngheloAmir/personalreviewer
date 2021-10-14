@@ -15,7 +15,9 @@ interface propsReceive {
 }
 
 export default function TextfieldBox(props :propsReceive) {
-    const inittext = props.initialText ? props.initialText : '';
+    if(!props.show) return <View></View>;
+
+    const inittext = props.initialText != undefined ? props.initialText : '';
     const [textvalue, settext] = React.useState(inittext);
 
     function handleOnOk() {
@@ -33,7 +35,7 @@ export default function TextfieldBox(props :propsReceive) {
     return (
         <DialogBox
             title={props.title}
-            isshow={props.show}
+            isshow={true}
             ok={handleOnOk}
             cancel={handleCancel}
             dialogContent={ () => <DialogContent text={textvalue} settext={settext} dis={props.display} /> }

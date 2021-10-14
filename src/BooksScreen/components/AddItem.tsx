@@ -10,7 +10,7 @@
         It appears below the ListOfShelf.tsx
 */
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface propsReceive {
@@ -26,5 +26,3 @@ export default function AddItem(props :propsReceive) {
         </View>
     );
 }
-
-

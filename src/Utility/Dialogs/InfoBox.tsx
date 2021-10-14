@@ -1,10 +1,9 @@
 /*
-    Work same as the DialogBox but providing an alert icon and text as the content
+    Work same as the DialogBox but providing an scrollable (or non scrollable) text content
 */
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import DialogBoxWindow from '../DialogBox';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export interface propsReceive {
     title    :string;
@@ -12,18 +11,19 @@ export interface propsReceive {
     isshow   :boolean;
     ok       :() => void;
     cancel?  :() => void;
+    scroll?  :boolean;
 }
 
-export default function AlertBox(props :propsReceive) {
+export default function InfoBox(props :propsReceive) {
     if(!props.isshow) return <View></View>;
-
+    
     return (
         <DialogBoxWindow
             title={props.title}
             isshow={true}
             ok={props.ok}
             cancel={props.cancel}
-            isScrolledContent={true}
+            isScrolledContent={props.scroll ? true : false}
             dialogContent={() => dialogContent(props.text)}
         />
     );
@@ -32,7 +32,6 @@ export default function AlertBox(props :propsReceive) {
 function dialogContent(text :string) {
     return (
         <View style={styles.container}>
-            <MaterialCommunityIcons name="alert-rhombus" size={64} color="#f55" />
             <Text style={styles.itemtext}>{text}</Text>
         </View>
     )
@@ -41,15 +40,13 @@ function dialogContent(text :string) {
 import GlobalStyle from '../GlobalStyles';
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        marginTop: 8,
     },
     itemtext: {
-        fontSize:   GlobalStyle.fontsize,
+        textAlign: 'justify',
+        fontSize:   GlobalStyle.fontsize + 1,
         color:      GlobalStyle.fontcolor,
         marginLeft: 8,
         marginBottom: 16,
-        marginTop: 8,
-        textAlign: 'center',
+        lineHeight: GlobalStyle.fontsize * 1.5,
     }
 });

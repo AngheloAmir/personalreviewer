@@ -41,9 +41,8 @@ export default function ListOfItems( props :propsReceive ) {
                             { props.itemIcon() }
                             <Text style={styles.itemtext}>{item.name}</Text>
                         </TouchableOpacity>
-
                         <TouchableOpacity onPress={() => props.onOptionPressed(index) }>
-                            <MaterialCommunityIcons name="dots-horizontal" size={24} color='darkgreen' />
+                            <MaterialCommunityIcons name="dots-horizontal" size={24} color='lightgreen' />
                         </TouchableOpacity>
                     </View>
                 )
