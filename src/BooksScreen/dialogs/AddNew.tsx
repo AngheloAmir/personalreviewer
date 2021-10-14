@@ -3,10 +3,11 @@
         Dialog Box - A Dialog Box is a component that over takes the current scene without replacing it.
 
     * DESCRIPTION
-        
+        Show the add new dialog and handle the functionality
 
     * VISIBLE WHEN
-        
+        localState.showDialogAdd is true, which is set by
+        localDispatch(localAction.showDialogAdd(....)). After the user tap (add new) icon
 */
 import React from 'react';
 

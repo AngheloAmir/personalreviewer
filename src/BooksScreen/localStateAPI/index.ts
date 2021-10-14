@@ -7,7 +7,7 @@ EXAMPLE USAGE===================================================================
     import { View, Text } from 'react-native';
 
     export default function component() {
-        const [localState, localDispatch] :LocalStateAPI = React.useContext(localContextProvider);
+        const {localState, localDispatch} :LocalStateAPI = React.useContext(localContextProvider);
         return (
             <View>
                 <Text>Selected book index: {localState.selectedBook}</Text>

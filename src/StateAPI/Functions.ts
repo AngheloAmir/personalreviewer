@@ -23,20 +23,22 @@ const functions = {
         }
     },
 
-    createSample: () :Book => {
-        return {
-            name:       'Demo book',
-            date:       getDate( Date.now() ),
-            lastmod:    getDate( Date.now() ),
-            files: [
-                {
-                    name:       'Sample page 1',
-                    date:       getDate( Date.now() ),
-                    lastmod:    getDate( Date.now() ),
-                    content:    'This is a sample page and can be deleted. It is automatically generated when creating new shelf', 
-                }
-            ]
-        }
-    },
+    createSample: () :Array<Book> => {
+        return [
+            {
+                name:       'Demo book',
+                date:       getDate( Date.now() ),
+                lastmod:    getDate( Date.now() ),
+                files: [
+                    {
+                        name:       'Sample page 1',
+                        date:       getDate( Date.now() ),
+                        lastmod:    getDate( Date.now() ),
+                        content:    'This is a sample page', 
+                    }
+                ]
+            }
+        ]
+    }
 }
 export default functions;

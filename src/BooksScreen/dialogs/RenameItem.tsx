@@ -3,10 +3,10 @@
         Dialog Box - A Dialog Box is a component that over takes the current scene without replacing it.
 
     * DESCRIPTION
-        
+        Show and handle the rename dialog box functionality
 
     * VISIBLE WHEN
-        
+        The user taps rename in the option menu
 */
 import React from 'react';
 import TextfieldBox from '../../Utility/Dialogs/TextfieldBox';

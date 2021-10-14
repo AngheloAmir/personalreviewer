@@ -6,7 +6,7 @@
         Show the delete shelf dialog box to user using DialogBox from utilities
 
     * VISIBLE WHEN
-        
+        localState.showDialogDelete is true. When the user select delete in the option menu
 */
 import React from 'react';
 

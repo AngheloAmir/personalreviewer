@@ -4,10 +4,11 @@
         Index - A parent component that does not display itself
 
     * DESCRIPTION
-       
+       This component show the list of files (books or files) and handle when
+       the file is clicked or the 3dots option is clicked
 
     * VISIBLE WHEN
-        
+        When the user is in the BookScreen which occur after the user open a shelf
 */
 import React from 'react';
 import { Image, View, StyleSheet, ScrollView } from 'react-native';
@@ -37,7 +38,8 @@ export default function FileScreen(props :propsReceive) {
             props.navigation.navigate('PageScreen');
         }
         else {
-            console.log('A page is pressed at: ' + index);
+            dispatch( action.books.setSelectedPage(index));
+            props.navigation.navigate('PageOpenScreen');
         }
     }
 
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     },
     content: {
         height: WindowDimension.height - 70,
-        width: '90%',
+        width: '88%',
         alignSelf: 'center',
         marginTop: 10,
         paddingBottom: 24,
