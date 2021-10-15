@@ -16,7 +16,7 @@
 	Take note that, it skips comments in the
 */
 
-export function colorBlueFileSearch( dataString :any, searchKey :any, onlyk :any) {
+export function colorBlueFileSearch( dataString :string, searchKey :string, onlyk :boolean) {
 	const sentences = dataString.split("\n");
 	let founditem = [];
 	

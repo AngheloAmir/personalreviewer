@@ -39,12 +39,12 @@ export default function ListOfShelfs(props :propsReceive) {
             if(data == null) {
                 const shelfdata :Array<Book> = [];
                 shelfdata.push( statefunction.createSample() );
-
                 await AsyncStorage.setItem(shelf.key, JSON.stringify(shelfdata));
                 dispatch( action.books.setBooks(shelfdata) );
             }
             else
                 dispatch( action.books.setBooks( JSON.parse(data) ) );
+            dispatch( action.shelf.setSelectedShelfKey(shelf.key) );
             dispatch( action.books.setIsOnBooks(true) );
             props.navigation.jumpTo('Books');
         }

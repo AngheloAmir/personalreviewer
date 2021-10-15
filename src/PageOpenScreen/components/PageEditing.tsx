@@ -9,15 +9,112 @@
         A page is edit
 */
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, StyleSheet,
+        Button, KeyboardAvoidingView,
+        TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { contextProvider, StateAPI, action } from '../../StateAPI';
 
 interface propsReceive {
+    setIsReading: (isreading :boolean) => void;
 }
 
-export default function PageEditing(props :propsReceive) {
+export default function PageReading(props :propsReceive) {
+    const { state, dispatch } :StateAPI = React.useContext(contextProvider);
+    const [ text, settext ]             = React.useState('-1');
+    const textinputref                  = React.useRef<TextInput>(null);
+    const navigation                    = useNavigation();
+
+    let content = '';
+    try {
+        if( state.shelf[state.selectedBook].files[state.selectedPage].content != undefined )
+            content = state.shelf[state.selectedBook].files[state.selectedPage].content;
+    }
+    catch(err) {
+    }
+
+    React.useEffect(() => {
+        //The data is stored using ref to prevent re rendering. This will optimize the input field
+        textinputref.current?.setNativeProps({ text: content });
+
+        function captureBack(e :any) {
+            e.preventDefault();
+        }
+        navigation.addListener('beforeRemove',captureBack);
+        return () => 
+            navigation.removeListener('beforeRemove', captureBack);
+    }, []);
+
+    async function handleOnSave() {
+        //check if no editing is made
+        if(text == '-1')
+            props.setIsReading(true); 
+        else {
+            dispatch( action.books.setCurrentPageContent(text));
+            props.setIsReading(true);
+
+        //Save the current shelf into the async storage. it requires to be timeout
+            setTimeout(() => dispatch(action.shelf.saveCurrentShelf()), 100);
+        }
+    }
+
     return (
-        <View>
-            <Text style={{fontSize: 20}}>You are editing a page!!!!!!!!</Text>
-        </View> 
+        <KeyboardAvoidingView style={styles.container}>
+            <TextInput
+                style={styles.textinput}
+                ref={textinputref}
+                multiline={true}
+                autoFocus={true}
+                blurOnSubmit={false}
+                scrollEnabled={true}
+                keyboardType={'default'}
+                returnKeyType={'default'}
+                onChangeText={ text =>  {
+                    textinputref.current?.setNativeProps({ text });
+                    settext(text);
+                }}
+                onBlur={() => textinputref.current?.focus()}
+            />
+            <View style={styles.button}>
+                <View style={{width: '40%'}}>
+                    <Button title='save' onPress={handleOnSave} />
+                </View>
+                <View style={{width: '40%'}}>
+                    <Button title='cancel' onPress={() => props.setIsReading(true)} />
+                </View>
+            </View>
+        </KeyboardAvoidingView>
     );
 }
+
+import { WindowDimension } from '../../Utility/useResponsive';
+import GlobalStyle from '../../Utility/GlobalStyles';
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        maxHeight: WindowDimension.height - 36,
+        paddingTop: 60,
+        paddingBottom: 16,
+    },
+    textinput: {
+        fontSize:   GlobalStyle.fontsize,
+        color:      'lightgray',
+        lineHeight: GlobalStyle.lineheight,
+        width: '94%',
+        marginLeft: '3%',
+        paddingHorizontal: '2%',
+        borderWidth: 1,
+        borderColor: '#555',
+    },
+    button: {
+        width: '80%',
+        position: 'absolute',
+        left: '10%',
+        top: 16,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    }
+});

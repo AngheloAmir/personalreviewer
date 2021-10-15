@@ -27,7 +27,7 @@ export default function BooksScreenIndex() {
           <Stack.Navigator>
               <Stack.Screen name="BooksScreen" component={BookScreenContainer} options={{headerShown: false}} />
               <Stack.Screen name="PageScreen"  component={PageScreenContainer} options={{headerShown: false}} />
-              <Stack.Screen name="PageOpenScreen"  component={PageReadScreenContainer} options={{headerShown: false}} />
+              <Stack.Screen name="PageOpenScreen"  component={PageOpenScreenIndex} options={{headerShown: false}} />
           </Stack.Navigator>
         </localContextProvider.Provider>
     );
@@ -55,13 +55,4 @@ function PageScreenContainer({navigation} :any) {
       <FilesScreen isOnBooks={false} navigation={navigation}/>
     </View>
   )
-}
-
-function PageReadScreenContainer({navigation} :any) {
-  return (
-      <View>
-          <Topbar title='Reading' navigation={navigation} />
-          <PageOpenScreenIndex />
-      </View>
-  );
 }

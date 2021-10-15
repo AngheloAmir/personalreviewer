@@ -12,7 +12,7 @@
 import React from 'react';
 
 import { localContextProvider, LocalStateAPI, localAction } from '../localStateAPI';
-import ListBox from '../../Utility/Dialogs/OptionBox';
+import OptionBox from '../../Utility/Dialogs/OptionBox';
 import { StateAPI, contextProvider } from '../../StateAPI';
 
 interface propsReceive {
@@ -25,7 +25,7 @@ export default function OptionsDialog(props :propsReceive) {
     const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider);
 
     return (
-        <ListBox
+        <OptionBox
             title={'What to do with ' + props.currentItemName + '?'}
             isshow={localState.showDialogOption}
             cancel={() => localDispatch( localAction.showDialogOption(false)) }

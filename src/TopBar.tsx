@@ -15,7 +15,7 @@ export default function Topbar(props :propsReceive) {
   return (
     <View style={styles.topbar}>
         <TouchableOpacity  onPress={handleMenuClick}>
-            <MaterialIcons name='menu' size={48} color='black' />
+            <MaterialIcons name='menu' size={48} color='white' />
         </TouchableOpacity>
         <Text style={styles.topbarText}>
             { props.title }
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   },
   topbarText: {
     fontSize:         26,
+    color:            'white',
     fontWeight:       "600",
     marginLeft:      24,
     marginTop:       8,

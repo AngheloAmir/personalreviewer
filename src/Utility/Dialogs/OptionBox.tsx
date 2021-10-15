@@ -15,22 +15,26 @@ interface propsReceive {
 }
 
 export default function OptionsDialog(props :propsReceive) {
-    if(!props.isshow) return <View></View>;
-    
-    return (
-        <DialogBox
-            title={props.title}
-            isshow={true}
-            cancel={props.cancel}
-            dialogContent={ () =>
-                <DialogContent
-                    close={props.cancel}
-                    onSelect={props.onSelect}
-                    list={props.list}
-                />
-            }
-        />
-    );
+    const prerenderedDialog = () => {
+        return (
+            <DialogBox
+                title={props.title}
+                isshow={props.isshow}
+                cancel={props.cancel}
+                dialogContent={ () =>
+                    <DialogContent
+                        close={props.cancel}
+                        onSelect={props.onSelect}
+                        list={props.list} />
+                }
+            />
+        );
+    };
+
+    if(props.isshow)
+        return prerenderedDialog();
+    else
+        return <View></View>
 }
 
 interface DialogContentProps {

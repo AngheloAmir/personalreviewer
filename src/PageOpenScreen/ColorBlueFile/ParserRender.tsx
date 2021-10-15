@@ -13,7 +13,7 @@ export default function ParserRender(props :propsReceive) {
     try {
     let temp = props.data.split( "\n");
     if( temp.length === 1 && temp[0].length === 0 )
-        return <Text>Empty</Text>;
+        return <Text style={styles.text}>...empty...</Text>;
 
     let spaces = '';
     let isEncounterAt = false;
@@ -66,7 +66,11 @@ export default function ParserRender(props :propsReceive) {
         </View>
     );
     } catch(err) {
-        return <View><Text>File cannot be parsed</Text></View>
+        return (
+            <View>
+                <Text style={[styles.text, {color: 'red'}]}>File cannot be parsed</Text>
+            </View>
+        );
     }
 }
 

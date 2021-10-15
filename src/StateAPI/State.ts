@@ -11,7 +11,7 @@ export const ContextProvider :React.Context<any> = React.createContext(null);
 export function CreateDefaultState() :StateInterface {
     return {
         listOfShelfs: [],
-        selectedShelf: '',
+        selectedShelf: '?',
 
         shelf: [
             //Functions.createBook('sample 1'),

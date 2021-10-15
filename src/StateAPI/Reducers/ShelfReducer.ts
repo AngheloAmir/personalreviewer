@@ -15,6 +15,10 @@ export default function ShelfReducer(state :StateInterface, action :ActionInterf
                 listOfShelfs: action.payload
             }
         
+        case actionType.saveCurrentShelf:
+            AsyncStorage.setItem(state.selectedShelf, JSON.stringify(state.shelf));
+            return state;
+
         case actionType.addShelfItem:
             temp = [...state.listOfShelfs, action.payload ];
             SaveListOfShelf(temp);
@@ -47,7 +51,12 @@ export default function ShelfReducer(state :StateInterface, action :ActionInterf
                 ...state,
                 listOfShelfs: temp
             }
-           
+        
+        case actionType.setSelectedShelfKey:
+            return {
+                ...state, selectedShelf: action.payload
+            }
+    
         default:
             console.error('ACTION NOT DEFINED IN THE REDUCER');
             return state;

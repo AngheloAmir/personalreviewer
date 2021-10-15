@@ -14,20 +14,20 @@
         A page is open
 */
 import React from 'react';
-import { View, Text, Button} from 'react-native';
+import { View } from 'react-native';
 
 import PageReading from './components/PageReading';
 import PageEditing from './components/PageEditing';
 
-export default function PageReadScreenContainer({navigation} :any) {
+export default function PageReadScreenContainer() {
     const [isReading, setIsReading] = React.useState(true);
 
     return (
-        <View>
+        <View>   
             { isReading ?
                 <PageReading setIsReading={setIsReading} />
                 :
-                <PageEditing />
+                <PageEditing setIsReading={setIsReading} />
             }
         </View>
     );

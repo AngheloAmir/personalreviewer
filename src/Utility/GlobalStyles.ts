@@ -8,7 +8,7 @@ interface globalstyle {
     lineheight :number;
 }
 
-const GlobalStyle :globalstyle = {
+let GlobalStyle :globalstyle = {
     defaultBackgroundColor:     '#1a1a1a',
     fontcolor:                  'white',
     fontsize:                   18,

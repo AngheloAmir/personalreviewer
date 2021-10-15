@@ -9,8 +9,9 @@
         A page is open
 */
 import React from 'react';
-import { View, Text, Button} from 'react-native';
+import { ScrollView, StyleSheet, View, Button} from 'react-native';
 
+import { contextProvider, StateAPI } from '../../StateAPI';
 import ParseRender from '../ColorBlueFile/ParserRender';
 
 interface propsReceive {
@@ -18,55 +19,53 @@ interface propsReceive {
 }
 
 export default function PageReading(props :propsReceive) {
-    const textTest =
-`#First Keyword
-description of the first keyword
-
-#Second keyword
-description of the second keyword
-
-@An Unorderlist
-*Item one
-description of list one
-*Item two
-description of list two
-@
-
-&An Ordered List
-*Step One 
-Description of step one
-*Step Two
-Description of step two
-&
-
-!Red keyword
-
--
-//Editing this is file is simple. To make a word hightighted, which know as the KEYWORD (in bold color), just add a number sign (#) in the start of a line. Then add new line to it to have its description. A keyword is a word you would normally remember when studying.
-
-//Character @ marks the start of an UNORDERLIST and each item is start with STAR (*) to mark that it was a keyword inside an unorder list. Then proceed with a description of this item.
-//Character & marks the start of an ORDERLIST and each item is start with STAR (*) to mark that it was a keyword inside an unorder list. Then proceed with a description of this item.
-
-//This is syntax scheme is used in generating quiz automatically, and might requires proper syntax or it cant generate a quiz at all. 
-//There are others syntax used but these are ignored during quiz generation.
-
-#Exclamation point (!) 
-Marks the line in bold red
-
-#Double back-slash (//) 
-Marks the line as a comment/
-#Minus Sign(-)
-
-Create a horizontal line, ignoring text from this line
-#Dollar sign ($) followed by path
-Load an image relative to the app path (works in web version)
-
-Click "Edit" to see how things work or may start quiz! Have fun!'`;
+    const { state } :StateAPI = React.useContext(contextProvider);
+    
+    let content = 'empty';
+    try {
+        if( state.shelf[state.selectedBook].files[state.selectedPage].content != undefined )
+            content = state.shelf[state.selectedBook].files[state.selectedPage].content;
+    }
+    catch(err) {
+    }
 
     return (
-        <View>
-            <ParseRender data={textTest} />
-        </View> 
+        <View style={styles.container}>
+            <ScrollView style={styles.scroll}>
+                <View style={styles.content}>
+                    <ParseRender data={content} />
+                </View>
+            </ScrollView>
+            <View style={styles.button}>
+                <View style={{width: '40%'}}>
+                    <Button title='edit' onPress={() => props.setIsReading(false)} />
+                </View>
+                <View style={{width: '40%'}}>
+                    <Button title='start quiz' onPress={() => console.log('Start QUIZ')} />
+                </View>
+            </View>
+        </View>
+        
     );
 }
-//<Button title='edit' onPress={() => props.setIsReading(false)} />
+
+import { WindowDimension } from '../../Utility/useResponsive';
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'column',
+    },
+    scroll: {
+        height: WindowDimension.height - 90,
+    },
+    content: {
+        width: '92%',
+        marginLeft: '4%',
+        paddingBottom: 24,
+        paddingTop: 8,
+    },
+    button: {
+        marginTop: 16,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    }
+});

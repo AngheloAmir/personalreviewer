@@ -1,8 +1,9 @@
 /*
     This file is not accessed outside the StateAPI folder except by the App.tsx
 */
-import { StateInterface } from "../index";
-import { ActionInterface, actionType } from "../Interface";
+import { StateInterface, Book} from "../index";
+import { ActionInterface, actionType, } from "../Interface";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function BooksReducer(state :StateInterface, action :ActionInterface) :StateInterface {
     switch(action.type) {
@@ -30,6 +31,19 @@ export default function BooksReducer(state :StateInterface, action :ActionInterf
             return {
                 ...state,
                 selectedPage: selectedPage
+            }
+        
+        case actionType.setCurrentPageContent:
+            const tempBook :Book = state.shelf[state.selectedBook];
+            tempBook.files[state.selectedPage].content = action.payload;
+
+            return {
+                ...state,
+                shelf: state.shelf.map((item, index) => {
+                    if(index != state.selectedBook)
+                        return item;
+                    else return tempBook
+                })
             }
 
         default:

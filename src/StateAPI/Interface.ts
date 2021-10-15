@@ -9,12 +9,16 @@ export interface ActionInterface {
 
 export enum actionType {
     setListOfShelf,
+    saveCurrentShelf,
     addShelfItem,
     renameShelf,
     deleteShelfItem,
+    setSelectedShelfKey,
 
     setIsOnBooks,
     setBooks,
     setSelectedBook,
     setSelectedPage,
+
+    setCurrentPageContent,
 }
