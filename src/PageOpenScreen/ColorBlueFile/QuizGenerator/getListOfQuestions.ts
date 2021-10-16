@@ -132,5 +132,5 @@ export function getListOfQuestions( file :string) :QuestionItem {
 }
 
 function getEnumQuestion( q :string, count :number  ) {
-	return "#" + count + " in: " + q + "?";
+	return "The number " + count + " in: " + q + "?";
 }

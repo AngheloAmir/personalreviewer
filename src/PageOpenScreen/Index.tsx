@@ -18,16 +18,37 @@ import { View } from 'react-native';
 
 import PageReading from './components/PageReading';
 import PageEditing from './components/PageEditing';
+import QuizInit from './components/QuizInit';
+import QuizStart from './components/QuizStart';
 
 export default function PageReadScreenContainer() {
     const [isReading, setIsReading] = React.useState(true);
+    const [isQuiz, setIsQuiz]       = React.useState(false);
+    const [setting, setsetting]     = React.useState({
+        includeBelongTo: true,
+        includeSteps:    false,
+        onlyTen:         false,
+        started:         false,
+    });
+    const [questions, setquestions] = React.useState<any>();
+
+    function whichScreen() {
+        if(isQuiz) {
+            if( !setting.started )
+                return <QuizInit setting={setting} setsetting={setsetting} setquestions={setquestions}/>
+            else
+                return <QuizStart questions={questions} setting={setting} />
+        }
+        else if(isReading)
+            return <PageReading setIsReading={setIsReading} setIsQuiz={setIsQuiz} />;
+        else
+            return <PageEditing setIsReading={setIsReading} />;
+    }
 
     return (
         <View>   
-            { isReading ?
-                <PageReading setIsReading={setIsReading} />
-                :
-                <PageEditing setIsReading={setIsReading} />
+            { 
+                whichScreen()
             }
         </View>
     );

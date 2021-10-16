@@ -13,9 +13,9 @@ import { View, StyleSheet,
         Button, KeyboardAvoidingView,
         TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { contextProvider, StateAPI, action } from '../../StateAPI';
+
+import InfoBox from '../../Utility/Dialogs/InfoBox';
 
 interface propsReceive {
     setIsReading: (isreading :boolean) => void;
@@ -24,6 +24,7 @@ interface propsReceive {
 export default function PageReading(props :propsReceive) {
     const { state, dispatch } :StateAPI = React.useContext(contextProvider);
     const [ text, settext ]             = React.useState('-1');
+    const [ showConfirm, setShow]       = React.useState(false);
     const textinputref                  = React.useRef<TextInput>(null);
     const navigation                    = useNavigation();
 
@@ -41,6 +42,7 @@ export default function PageReading(props :propsReceive) {
 
         function captureBack(e :any) {
             e.preventDefault();
+            setShow(true);
         }
         navigation.addListener('beforeRemove',captureBack);
         return () => 
@@ -61,31 +63,37 @@ export default function PageReading(props :propsReceive) {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.container}>
-            <TextInput
-                style={styles.textinput}
-                ref={textinputref}
-                multiline={true}
-                autoFocus={true}
-                blurOnSubmit={false}
-                scrollEnabled={true}
-                keyboardType={'default'}
-                returnKeyType={'default'}
-                onChangeText={ text =>  {
-                    textinputref.current?.setNativeProps({ text });
-                    settext(text);
-                }}
-                onBlur={() => textinputref.current?.focus()}
-            />
-            <View style={styles.button}>
-                <View style={{width: '40%'}}>
-                    <Button title='save' onPress={handleOnSave} />
+        <View>
+            <KeyboardAvoidingView style={styles.container}>
+                <TextInput
+                    style={styles.textinput}
+                    ref={textinputref}
+                    multiline={true}
+                    autoFocus={true}
+                    blurOnSubmit={false}
+                    scrollEnabled={true}
+                    keyboardType={'default'}
+                    returnKeyType={'default'}
+                    onChangeText={ text =>  {
+                        textinputref.current?.setNativeProps({ text });
+                        settext(text);
+                    }}
+                    onBlur={() => textinputref.current?.focus()}
+                />
+                <View style={styles.button}>
+                    <View style={{width: '80%'}}>
+                        <Button title='save' onPress={handleOnSave} />
+                    </View>
                 </View>
-                <View style={{width: '40%'}}>
-                    <Button title='cancel' onPress={() => props.setIsReading(true)} />
-                </View>
-            </View>
-        </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
+            <InfoBox
+                isshow={showConfirm}
+                title='Discard changes'
+                text='Close editing and discard changes?'
+                ok={() => props.setIsReading(true)}
+                cancel={() => setShow(false)}
+             />   
+        </View>
     );
 }
 

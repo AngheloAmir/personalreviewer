@@ -16,6 +16,7 @@ import ParseRender from '../ColorBlueFile/ParserRender';
 
 interface propsReceive {
     setIsReading: (isreading :boolean) => void;
+    setIsQuiz:    (isquiz :boolean) => void;
 }
 
 export default function PageReading(props :propsReceive) {
@@ -41,11 +42,10 @@ export default function PageReading(props :propsReceive) {
                     <Button title='edit' onPress={() => props.setIsReading(false)} />
                 </View>
                 <View style={{width: '40%'}}>
-                    <Button title='start quiz' onPress={() => console.log('Start QUIZ')} />
+                    <Button title='start quiz' onPress={() => props.setIsQuiz(true)} />
                 </View>
             </View>
         </View>
-        
     );
 }
 

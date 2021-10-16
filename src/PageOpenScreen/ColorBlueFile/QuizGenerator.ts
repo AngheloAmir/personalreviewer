@@ -56,7 +56,7 @@ export function generateQuiz( file :string, ignores :Array<string> | undefined) 
 	} 
 	catch( err ) {
 		return [
-			{ question: "Error in generating question", choices: ["?"], answer: "?" }
+			{ question: "Error in generating question", choices: ["?", "?", "?", "?"], answer: "?" }
 		];
 	}
 }
