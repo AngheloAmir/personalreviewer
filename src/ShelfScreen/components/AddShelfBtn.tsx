@@ -21,14 +21,8 @@ interface propsReceive {
 export default function AddShelfBtn(props :propsReceive) {
     return (
         <View style={style.container}>
-            <TouchableOpacity onPress={props.onPress} style={style.buttonContainer}>
+            <TouchableOpacity onPress={props.onPress}>
                 <MaterialIcons name="library-add" size={30} color='lightgreen' />
-                <Text style={style.text}>New Shelf</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity  style={style.buttonContainer}>
-                <MaterialCommunityIcons name="database-import" size={30} color='lightgreen' />
-                <Text style={style.text}>Import</Text>
             </TouchableOpacity>
         </View>
     );
@@ -36,10 +30,7 @@ export default function AddShelfBtn(props :propsReceive) {
 
 const style = StyleSheet.create({
     container: {
-        alignSelf:          'center',
-        flexDirection:      'row',
-        justifyContent:     'space-evenly',
-        width:              '60%'
+
     },
     buttonContainer: {
         alignItems: 'center'

@@ -48,7 +48,6 @@ export default function ListOfShelfs(props :propsReceive) {
                 dispatch( action.books.setBooks( JSON.parse(data) ) );
             dispatch( action.shelf.setSelectedShelfKey(shelf.key) );
             dispatch( action.app.setIsOnBooks(true) );
-            props.navigation.jumpTo('Books');
             await AsyncStorage.setItem('currentbook', shelf.key);
         }
         catch(err) {

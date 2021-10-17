@@ -125,6 +125,76 @@ export default function BooksReducer(state :StateInterface, action :ActionInterf
                     }
                 })
             }
+        
+            case actionType.moveBookUp:
+                const bkindex = action.index;
+                if(bkindex == undefined || bkindex == 0) return state;
+                const a = state.shelf.map((item :Book, index: number) => {
+                    if(index == (bkindex - 1))
+                        return state.shelf[bkindex];
+                    if(index == bkindex)
+                        return state.shelf[bkindex -1];
+                    return item;
+                });
+                return {
+                    ...state,
+                    shelf: [...a]
+                }
+
+            case actionType.moveBookDown:
+                const bkindex1 = action.index;
+                if(bkindex1 == undefined || bkindex1 == (state.shelf.length - 1)) return state;
+                const b = state.shelf.map((item :Book, index: number) => {
+                    if(index == (bkindex1 + 1))
+                        return state.shelf[bkindex1];
+                    if(index == bkindex1)
+                        return state.shelf[bkindex1 + 1];
+                    return item;
+                });
+                return {
+                    ...state,
+                    shelf: [...b]
+                }
+
+            case actionType.movePageUp:
+                const pindex = action.index;
+                if(pindex == undefined || pindex == 0) return state;
+                const files1 = state.shelf[state.selectedBook].files.map((item :File, index :number) => {
+                    if(index == (pindex - 1))
+                        return state.shelf[state.selectedBook].files[pindex];
+                    if(index == pindex)
+                        return state.shelf[state.selectedBook].files[pindex -1];
+                    return item;
+                });
+              return {
+                  ...state,
+                  shelf: state.shelf.map((item :Book, index :number) => {
+                      if(index != state.selectedBook) return item;
+                      return {
+                          ...item, files: [...files1]
+                      }
+                  })
+              }
+
+            case actionType.movePageDown:
+                const pindex1 = action.index;
+                if(pindex1 == undefined || pindex1 == state.shelf[state.selectedBook].files.length - 1) return state;
+                const files2 = state.shelf[state.selectedBook].files.map((item :File, index :number) => {
+                    if(index == (pindex1 + 1))
+                        return state.shelf[state.selectedBook].files[pindex1];
+                    if(index == pindex1)
+                        return state.shelf[state.selectedBook].files[pindex1 + 1];
+                    return item;
+                });
+              return {
+                  ...state,
+                  shelf: state.shelf.map((item :Book, index :number) => {
+                      if(index != state.selectedBook) return item;
+                      return {
+                          ...item, files: [...files2]
+                      }
+                  })
+              }
             
         default:
             console.error('ACTION NOT DEFINED IN THE BOOKS REDUCER');

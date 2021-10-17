@@ -33,8 +33,8 @@ export default function OptionsDialog(props :propsReceive) {
                 { text: 'Info',         iconname: 'information' },
                 { text: 'Rename',       iconname: 'rename-box' },
                 { text: 'Delete',       iconname: 'delete-forever' },
-                //{ text: 'Move Up',      iconname: 'arrow-up-circle' },
-                //{ text: 'Move Down',    iconname: 'arrow-down-circle' },
+                { text: 'Move Up',      iconname: 'arrow-up-circle' },
+                { text: 'Move Down',    iconname: 'arrow-down-circle' },
                 { text: 'Sort',         iconname: 'sort-alphabetical-ascending' },
             ]}
             onSelect={(text :string) => {
@@ -47,17 +47,29 @@ export default function OptionsDialog(props :propsReceive) {
                             `Last Modifled: ${state.shelf[state.selectedBook].files[state.selectedPage].lastmod}`;
                         localDispatch( localAction.setDialogInfo(true, info));
                         break;
+
                     case 'Rename':
                         localDispatch( localAction.showDialogRename(true));
                         break;
-                    /*
+
                     case 'Move Up':
-                        console.log('Pressed up');
+                        if(props.isOnBooks)
+                            dispatch( action.books.moveBookUp(state.selectedBook) )
+                        else
+                            dispatch( action.books.movePageUp(state.selectedPage) )
+                        //Save the current shelf into the async storage. it requires to be timeout
+                        setTimeout(() => dispatch(action.shelf.saveCurrentShelf()), 100);
                         break;
+
                     case 'Move Down':
-                        console.log('Pressed down');
+                        if(props.isOnBooks)
+                            dispatch( action.books.moveBookDown(state.selectedBook) )
+                        else
+                            dispatch( action.books.movePageDown(state.selectedPage) )
+                        //Save the current shelf into the async storage. it requires to be timeout
+                        setTimeout(() => dispatch(action.shelf.saveCurrentShelf()), 100);
                         break;
-                    */
+
                     case 'Sort':
                         if( props.isOnBooks )
                             dispatch( action.books.sortBooks() );
@@ -67,9 +79,11 @@ export default function OptionsDialog(props :propsReceive) {
                         //Save the current shelf into the async storage. it requires to be timeout
                         setTimeout(() => dispatch(action.shelf.saveCurrentShelf()), 100);
                         break;
+
                     case 'Delete':
                         localDispatch( localAction.showDialogDelete(true))
                         break;
+
                     default:
                         break;
                 }

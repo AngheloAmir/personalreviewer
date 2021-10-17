@@ -31,4 +31,8 @@ export enum actionType {
     deletePage,
     renameBook,
     renamePage,
+    moveBookUp,
+    moveBookDown,
+    movePageUp,
+    movePageDown,
 }

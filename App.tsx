@@ -4,7 +4,7 @@
   * It display the main view (the initial screen the user would see)
   
   HOW THE PROGRAM WORKS?
-    On the initial display of the application, the src/IndexNavigation is loaded.
+    On the initial display of the application, the src/IndexForSelf is loaded.
     This component sets up the navigation drawer. It will essentially display
     the ShelfScreen (at src/ShelfScreen/Index).
 
@@ -22,7 +22,10 @@
     The app source code can be quite confusing. There were two Drawer Container.
     Since Shelf Screen (the initial screen will be seen at the app first run) can have functionality
     like: Search... and on the other hand, BookScreen (which include PageOpenScreen) cannot have functionality
-    like: Import. So threfore, it has to be seperated IndexNavigation.
+    like: Import. So threfore, it has to be seperated IndexNavigation. The main reason of seperation is because
+    capturing back button will produce more complicated solution.
+
+
 
 */
 import React from 'react';
@@ -32,7 +35,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { contextProvider, createDefaultState, action, AShelf } from './src/StateAPI';
 import RootReducer from './src/StateAPI/RootReducer';
 
-import IndexNavigation from './src/IndexNavForShelf';
+import IndexNavForShelf from './src/IndexNavForShelf';
+import IndexNavForBooks from './src/IndexNavForBooks';
 
 export default function App() {
   const [state, dispatch]     = React.useReducer(RootReducer, createDefaultState());
@@ -47,12 +51,12 @@ export default function App() {
         const data = await AsyncStorage.getItem(loadedBook);
         if(data != null) {
           dispatch( action.app.setIsOnBooks(true) );
+          dispatch( action.shelf.setSelectedShelfKey(loadedBook) );
           dispatch( action.books.setBooks( JSON.parse(data) ) );
         }
       }
       loadSaveListOfShelf();
     }
-
     //Load the save states which contains an array of {name :string, key :string}
     async function loadSaveListOfShelf() {
       try {
@@ -70,15 +74,24 @@ export default function App() {
         }
         dispatch( action.app.doneLoading() );
     }
-
     loadCurrentBook();
   }, []);
 
+  //This function will be called after async storage has loaded data into the memory
+  //to prevent a flicker
+  function storageLoaded() {
+    //if(state.isOnBooks)
+    //  return <IndexNavForBooks />
+    //else
+      return <IndexNavForShelf />
+  }
   return (
     <View style={styles.app}>
       <StatusBar barStyle='default'/>
         <contextProvider.Provider value={{state, dispatch}}>
-          <IndexNavigation />
+          {
+            state.doneloading && storageLoaded()
+          }
         </contextProvider.Provider>		
     </View>
   );

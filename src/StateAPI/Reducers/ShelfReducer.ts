@@ -18,7 +18,7 @@ export default function ShelfReducer(state :StateInterface, action :ActionInterf
             }
         
         case actionType.saveCurrentShelf:
-            AsyncStorage.setItem(state.selectedShelf, JSON.stringify(state.shelf));
+            SaveCurrent(state.selectedShelf, JSON.stringify(state.shelf) );
             return state;
 
         case actionType.addShelfItem:
@@ -62,6 +62,15 @@ export default function ShelfReducer(state :StateInterface, action :ActionInterf
         default:
             console.error('ACTION NOT DEFINED IN SHELF REDUCER');
             return state;
+    }
+}
+
+async function SaveCurrent(key :string, data :string) {
+    try {
+        await AsyncStorage.setItem(key, data );
+    }
+    catch(err :any) {
+      console.error('Failed to save the current shelf. ' + err);
     }
 }
 

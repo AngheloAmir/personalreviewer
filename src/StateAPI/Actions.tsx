@@ -146,6 +146,32 @@ const Action = {
                 index: index
             }
         },
+
+        moveBookUp: (index :number) :ActionInterface => {
+            return {
+                type: actionType.moveBookUp,
+                index: index
+            }
+        },
+        movePageUp: (index :number) :ActionInterface => {
+            return {
+                type: actionType.movePageUp,
+                index: index
+            }
+        },
+        moveBookDown: (index :number) :ActionInterface => {
+            return {
+                type: actionType.moveBookDown,
+                index: index
+            }
+        },
+        movePageDown: (index :number) :ActionInterface => {
+            return {
+                type: actionType.movePageDown,
+                index: index
+            }
+        },
     },
+    
 }
 export default Action;

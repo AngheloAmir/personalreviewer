@@ -11,11 +11,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 
-import ShelfScreenIndex     from './ShelfScreen/Index';
+import { contextProvider, StateAPI, action } from './StateAPI';
 import HomeScreenIndex      from './BooksScreen/Index';
 import GlobalStyle          from './Utility/GlobalStyles';
 
 export default function Index() {
+  const { dispatch } :StateAPI = React.useContext(contextProvider);
   const Drawer = createDrawerNavigator();
   
   return (
@@ -34,7 +35,7 @@ export default function Index() {
             <View style={styles.drawerContainer}>
               <TouchableOpacity
                 style={props.state.index == 0 ? styles.drawerItemActive : styles.drawerItem }
-                onPress={() => props.state.index != 0 && props.navigation.navigate('Shelfs')}>
+                onPress={() => dispatch(action.app.setIsOnBooks(false))}>
                 <MaterialCommunityIcons name='bookshelf' size={24} color='lightgreen' />
                 <Text style={styles.drawerText}>Your Shelfs</Text>
               </TouchableOpacity>
@@ -44,13 +45,6 @@ export default function Index() {
                 /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
                 <MaterialCommunityIcons name='file-find' size={24} color='lightgreen' />
                 <Text style={styles.drawerText}>Search</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={props.state.index == 2 ? styles.drawerItemActive : styles.drawerItem }
-                /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
-                <MaterialIcons name='settings' size={24} color='lightgreen' />
-                <Text style={styles.drawerText}>Settings</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -70,10 +64,8 @@ export default function Index() {
             
           </View>
       )}>
-
-        <Drawer.Screen name="Shelfs" component={ShelfScreenIndex} />
-        <Drawer.Screen name="Books" component={HomeScreenIndex} /> 
-
+        <Drawer.Screen name="Books" component={HomeScreenIndex} />
+        
       </Drawer.Navigator>
     </NavigationContainer>
   );

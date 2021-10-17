@@ -12,32 +12,20 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-import { contextProvider, StateAPI } from '../StateAPI';
 import Topbar from '../TopBar';
 import GlobalStyle from '../Utility/GlobalStyles';
 import ListOfShelfs     from './components/ListOfShelf';
 import ShelfDialogs     from './components/ShelfDialogs';
 
 export default function Index({navigation} :any) {
-  const { state } :StateAPI = React.useContext(contextProvider);
   const [currentItem, setItem]                    = React.useState({name: '', index: 0});
   const [isShowAddDialog, setShowAddDialog]       = React.useState(false);
   const [isShowOptionDialog, setShowOptionDialog] = React.useState(false);
   const [isRenameOptionDialog, setRenameDialog]   = React.useState(false);
   const [isConfirmDeleteDialog, setConfirmDelete] = React.useState(false);
 
-  React.useEffect(() => {
-    //In order to acheive an effect of switching to Bookscreen if the user prevously selected a book
-    //when the app is lunch again. Immediately navigate to Books screen.
-    //It may quite confusion but this is made in order to achieve that effect.
-    //This component use state.doneloading to prevent a sudden flicker from screen change
-    if(state.isOnBooks && !state.doneloading)
-      navigation.jumpTo('Books');
-  });
-
   return (
     <View style={{backgroundColor: GlobalStyle.defaultBackgroundColor}}>
-      { state.doneloading &&
         <View>
           <Topbar title='Menu' navigation={navigation} />
           <ListOfShelfs
@@ -59,7 +47,6 @@ export default function Index({navigation} :any) {
             setConfirmDelete={setConfirmDelete}
         />
         </View>
-      }
     </View>
   )
 }

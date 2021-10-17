@@ -35,6 +35,10 @@ export default function RootReducer(state :StateInterface, action :ActionInterfa
             case actionType.deletePage:
             case actionType.renameBook:
             case actionType.renamePage:
+            case actionType.moveBookUp:
+            case actionType.moveBookDown:
+            case actionType.movePageUp:
+            case actionType.movePageDown:
                 return BooksReducer(state, action);
 
             default:
