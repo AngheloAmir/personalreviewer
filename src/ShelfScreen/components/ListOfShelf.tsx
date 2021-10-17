@@ -10,7 +10,7 @@
         When the user is at the Shelf scene
 */
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -33,6 +33,8 @@ export default function ListOfShelfs(props :propsReceive) {
     //First, it check if the assciated item has key that exist in the async storage
     //if so load the data (parse in json). if not, create a demo books
     //and save the content in async storage
+    //also updates async storage "currentbook" so this book will be
+    //immediately open on the next app relunch
     async function handleShelfItemSelect(shelf :AShelf, index :number) {
         try {
             const data = await AsyncStorage.getItem(shelf.key);
@@ -45,8 +47,9 @@ export default function ListOfShelfs(props :propsReceive) {
             else
                 dispatch( action.books.setBooks( JSON.parse(data) ) );
             dispatch( action.shelf.setSelectedShelfKey(shelf.key) );
-            dispatch( action.books.setIsOnBooks(true) );
+            dispatch( action.app.setIsOnBooks(true) );
             props.navigation.jumpTo('Books');
+            await AsyncStorage.setItem('currentbook', shelf.key);
         }
         catch(err) {
             console.error(err);

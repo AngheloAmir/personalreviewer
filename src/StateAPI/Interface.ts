@@ -8,6 +8,9 @@ export interface ActionInterface {
 }
 
 export enum actionType {
+    doneLoading,
+    setIsOnBooks,
+
     setListOfShelf,
     saveCurrentShelf,
     addShelfItem,
@@ -15,10 +18,17 @@ export enum actionType {
     deleteShelfItem,
     setSelectedShelfKey,
 
-    setIsOnBooks,
     setBooks,
     setSelectedBook,
     setSelectedPage,
 
     setCurrentPageContent,
+    sortBooks,
+    sortPages,
+    addBook,
+    addPage,
+    deleteBook,
+    deletePage,
+    renameBook,
+    renamePage,
 }

@@ -37,11 +37,17 @@ export interface StateAPI {
 
 export interface StateInterface {
     listOfShelfs    :Array<AShelf>;
-    selectedShelf   :string;            //the key of the shelf to be loaded
+    selectedShelf   :string; //the key of the shelf to be loaded
     shelf           :Array<Book>;
-    isOnBooks       :boolean,
     selectedBook    :number;
     selectedPage    :number;
+
+//tells whether the shelf screen or the book screen will be loaded.
+//Not to be confuse with props.isOnBooks used in FileScreen which is used to determin if listing books or pages
+    isOnBooks       :boolean;
+
+//this variable is used to prevent a flicker when immediately switch to Shelf to Books screen on app relunch
+    doneloading     :boolean; 
 }
 
 export interface AShelf {

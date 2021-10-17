@@ -4,12 +4,17 @@
 import { StateInterface } from "./index";
 import { ActionInterface, actionType } from "./Interface";
 
+import AppReducer   from './Reducers/AppReducer';
 import ShelfReducer from './Reducers/ShelfReducer';
 import BooksReducer from './Reducers/BooksReducer';
 
 export default function RootReducer(state :StateInterface, action :ActionInterface) :StateInterface {
     try {
         switch(action.type) {
+            case actionType.doneLoading:
+            case actionType.setIsOnBooks:
+                return AppReducer(state, action);
+
             case actionType.setListOfShelf:
             case actionType.saveCurrentShelf:
             case actionType.addShelfItem:
@@ -19,10 +24,17 @@ export default function RootReducer(state :StateInterface, action :ActionInterfa
                 return ShelfReducer(state, action);
             
             case actionType.setBooks:
-            case actionType.setIsOnBooks:
             case actionType.setSelectedBook:
             case actionType.setSelectedPage:
             case actionType.setCurrentPageContent:
+            case actionType.sortBooks:
+            case actionType.sortPages:
+            case actionType.addBook:
+            case actionType.addPage:
+            case actionType.deleteBook:
+            case actionType.deletePage:
+            case actionType.renameBook:
+            case actionType.renamePage:
                 return BooksReducer(state, action);
 
             default:

@@ -26,7 +26,6 @@ export default function AllDialogsIndex({isOnBooks} :any) {
     const { state } : StateAPI = React.useContext(contextProvider);
     const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider);
 
-    const currentItemIndex = isOnBooks ? state.selectedBook : state.selectedPage;
     let currentItemName = '';
     try {
         currentItemName = isOnBooks ?
@@ -41,7 +40,7 @@ export default function AllDialogsIndex({isOnBooks} :any) {
     return (
         <View style={{position: 'absolute'}}>
             <OptionsDialog
-                currentItemIndex={currentItemIndex}
+                isOnBooks={isOnBooks}
                 currentItemName={currentItemName}
             />
             <InfoBox
@@ -52,11 +51,11 @@ export default function AllDialogsIndex({isOnBooks} :any) {
                 ok={() => localDispatch( localAction.setDialogInfo(false)) }
             />
             <RenameItem
-                currentItemIndex={currentItemIndex}
+                isOnBooks={isOnBooks}
                 currentItemName={currentItemName}
             />
             <ConfirmDelete
-                currentItemIndex={currentItemIndex}
+                isOnBooks={isOnBooks}
                 currentItemName={currentItemName}
             />
             <AddNew

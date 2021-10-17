@@ -14,16 +14,23 @@ import { contextProvider, StateAPI, action } from '../../StateAPI';
 import { LocalStateAPI, localContextProvider, localAction } from '../localStateAPI';
 
 interface propsReceive {
-    currentItemIndex    :number;
+    isOnBooks           :boolean;
     currentItemName     :string;
 }
 
 export default function RenameItem(props :propsReceive) {
-    //const { state, dispatch } :StateAPI    = React.useContext(contextProvider);
+    const { state, dispatch } :StateAPI    = React.useContext(contextProvider);
     const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider)
 
     function handleOnOk(text :string) {
-       console.log('Renamed');
+        if( props.isOnBooks )
+            dispatch( action.books.renameBook(text, state.selectedBook));
+        else
+            dispatch( action.books.renamePage(text, state.selectedPage));
+
+        localDispatch( localAction.showDialogRename(false));
+        //Save the current shelf into the async storage. it requires to be timeout
+        setTimeout(() => dispatch(action.shelf.saveCurrentShelf()), 100);
     }
 
     const title = 'Rename  ' + props.currentItemName;

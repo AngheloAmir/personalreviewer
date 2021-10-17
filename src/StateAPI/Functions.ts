@@ -1,14 +1,14 @@
 /*
 */
-import getDate from '../Utility/Functions/getdate';
+import { getDateCurrentPHTime } from '../Utility/Functions/getdate';
 import { Book, File } from "./index";
 
 const functions = {
     createBook: (name :string) :Book => {
         return {
             name:       name,
-            date:       getDate( Date.now() ),
-            lastmod:    getDate( Date.now() ),
+            date:       getDateCurrentPHTime(),
+            lastmod:    getDateCurrentPHTime(),
             files:      [],
         }
     },
@@ -16,8 +16,8 @@ const functions = {
     createFile: (name :string) :File => {
         return {
             name:       name,
-            date:       getDate( Date.now() ),
-            lastmod:    getDate( Date.now() ),
+            date:       getDateCurrentPHTime(),
+            lastmod:    getDateCurrentPHTime(),
             content:    '',
         }
     },
@@ -25,13 +25,13 @@ const functions = {
     createSample: () :Book => {
         return {
             name:       'Demo book',
-            date:       getDate( Date.now() ),
-            lastmod:    getDate( Date.now() ),
+            date:       getDateCurrentPHTime(),
+            lastmod:    getDateCurrentPHTime(),
             files: [
                 {
                     name:       'Sample page 1',
-                    date:       getDate( Date.now() ),
-                    lastmod:    getDate( Date.now() ),
+                    date:       getDateCurrentPHTime(),
+                    lastmod:    getDateCurrentPHTime(),
                     content:    firstPageContent, 
                 }
             ]

@@ -15,16 +15,23 @@ import { contextProvider, StateAPI, action } from '../../StateAPI';
 import { localContextProvider, LocalStateAPI, localAction } from '../localStateAPI';
 
 interface propsReceive {
-    currentItemIndex     :number;
-    currentItemName      :string;
+    isOnBooks           :boolean;
+    currentItemName     :string;
 }
 
 export default function ConfirmDelete(props :propsReceive) {
+    const { state, dispatch } :StateAPI = React.useContext(contextProvider);
     const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider);
 
     function handleDelete() {
-        console.log('.....Deleting......');
+        if(props.isOnBooks) 
+            dispatch( action.books.deleteBook( state.selectedBook ));
+        else
+            dispatch( action.books.deletePage( state.selectedPage ));
         localDispatch(localAction.showDialogDelete(false));
+
+        //Save the current shelf into the async storage. it requires to be timeout
+        setTimeout(() => dispatch(action.shelf.saveCurrentShelf()), 100);
     }
 
     return (

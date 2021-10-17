@@ -58,7 +58,6 @@ export default function FileScreen(props :propsReceive) {
                         else
                             dispatch( action.books.setSelectedPage(index) );
                         localDispatch( localAction.showDialogOption(true));
-                        dispatch( action.books.setIsOnBooks(props.isOnBooks) );
                     }}
                     onItemSelected={handleItemPressed}
                     itemIcon={() => {

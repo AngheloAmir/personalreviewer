@@ -4,7 +4,6 @@
 */
 import React from 'react';
 import { StateInterface } from './index';
-import Functions from './Functions';
 
 export const ContextProvider :React.Context<any> = React.createContext(null);
 
@@ -14,11 +13,12 @@ export function CreateDefaultState() :StateInterface {
         selectedShelf: '?',
 
         shelf: [
-            //Functions.createBook('sample 1'),
-            //Functions.createBook('sample 2')
         ],
-        isOnBooks: true,
+
+        isOnBooks: false,
         selectedBook: 0,
         selectedPage: 0,
+
+        doneloading: false,
     }
 }

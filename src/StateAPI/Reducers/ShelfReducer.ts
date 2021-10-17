@@ -10,6 +10,8 @@ export default function ShelfReducer(state :StateInterface, action :ActionInterf
 
     switch(action.type) {
         case actionType.setListOfShelf:
+            action.payload = action.payload.sort((a: AShelf, b :AShelf) => a.name.localeCompare(b.name));
+
             return {
                 ...state,
                 listOfShelfs: action.payload
@@ -58,7 +60,7 @@ export default function ShelfReducer(state :StateInterface, action :ActionInterf
             }
     
         default:
-            console.error('ACTION NOT DEFINED IN THE REDUCER');
+            console.error('ACTION NOT DEFINED IN SHELF REDUCER');
             return state;
     }
 }

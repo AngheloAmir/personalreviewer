@@ -55,10 +55,9 @@ export default function PageReading(props :propsReceive) {
             props.setIsReading(true); 
         else {
             dispatch( action.books.setCurrentPageContent(text));
-            props.setIsReading(true);
-
         //Save the current shelf into the async storage. it requires to be timeout
             setTimeout(() => dispatch(action.shelf.saveCurrentShelf()), 100);
+            props.setIsReading(true);
         }
     }
 

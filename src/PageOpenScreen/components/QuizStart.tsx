@@ -47,9 +47,9 @@ export default function QuizStart(props :propsReceive) {
             <View style={styles.container}>
                 <View>
                     <Text style={styles.text}>Question {count + 1} of {maxquestion}</Text>
-                    <Text style={styles.text}>{'\t'}{props.questions[count].question}</Text>
+                    <Text style={styles.text}>{props.questions[count].question}</Text>
                 </View>
-                <View>
+                <View style={styles.questionContainer}>
                     <View style={styles.choicesContainer}>
                         <TouchableOpacity style={styles.choiceItem} onPress={() => makeAnswer(0)}>
                             <Text style={styles.text}>{props.questions[count].choices[0]}</Text>
@@ -67,7 +67,7 @@ export default function QuizStart(props :propsReceive) {
                 </View>
             </View>
             :
-            <View style={styles.container}>
+            <View style={styles.containerDone}>
                 <Text style={styles.text}>Finnish!</Text>
                 <View style={{marginTop: 16}}>
                     <Text style={styles.text}>You got {correct} out of {maxquestion}</Text>
@@ -87,7 +87,18 @@ const styles = StyleSheet.create({
     container: {
         width: '85%',
         marginLeft: '7.5%',
-        marginTop: 32,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: '85%',
+        marginTop: '15%',
+    },
+    containerDone: {
+        width: '85%',
+        marginLeft: '7.5%',
+        marginTop: '20%',
+    },
+    questionContainer: {
+
     },
     text: {
         fontSize: GlobalStyle.fontsize,

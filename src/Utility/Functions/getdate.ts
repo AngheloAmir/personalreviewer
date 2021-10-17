@@ -3,8 +3,12 @@
 */
 
 export default function getDate(currentTime :number) :string {
-    const d = new Date(currentTime);
+    const d = new Date( currentTime );
     return `${getDay(d.getDay())}, ${d.getDate()} ${getMonth(d.getMonth())}, ${d.getFullYear()}`;
+}
+
+export function getDateCurrentPHTime() :string {
+    return getDate( Date.now() + (1000*60*60*13));
 }
 
 function getDay(day :number ) {

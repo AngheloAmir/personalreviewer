@@ -13,15 +13,15 @@ import React from 'react';
 
 import { localContextProvider, LocalStateAPI, localAction } from '../localStateAPI';
 import OptionBox from '../../Utility/Dialogs/OptionBox';
-import { StateAPI, contextProvider } from '../../StateAPI';
+import { StateAPI, contextProvider, action} from '../../StateAPI';
 
 interface propsReceive {
-    currentItemIndex     :number;
+    isOnBooks            :boolean;
     currentItemName      :string;
 }
 
 export default function OptionsDialog(props :propsReceive) {
-    const { state } :StateAPI = React.useContext(contextProvider);
+    const { state, dispatch } :StateAPI = React.useContext(contextProvider);
     const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider);
 
     return (
@@ -33,14 +33,14 @@ export default function OptionsDialog(props :propsReceive) {
                 { text: 'Info',         iconname: 'information' },
                 { text: 'Rename',       iconname: 'rename-box' },
                 { text: 'Delete',       iconname: 'delete-forever' },
-                { text: 'Move Up',      iconname: 'arrow-up-circle' },
-                { text: 'Move Down',    iconname: 'arrow-down-circle' },
+                //{ text: 'Move Up',      iconname: 'arrow-up-circle' },
+                //{ text: 'Move Down',    iconname: 'arrow-down-circle' },
                 { text: 'Sort',         iconname: 'sort-alphabetical-ascending' },
             ]}
             onSelect={(text :string) => {
                 switch(text) {
                     case 'Info':
-                        const info = state.isOnBooks ?
+                        const info = props.isOnBooks ?
                             `Created: ${state.shelf[state.selectedBook].date} \n` +
                             `Last Modified: ${state.shelf[state.selectedBook].lastmod}` :
                             `Created: ${state.shelf[state.selectedBook].files[state.selectedPage].date}\n` +
@@ -50,14 +50,22 @@ export default function OptionsDialog(props :propsReceive) {
                     case 'Rename':
                         localDispatch( localAction.showDialogRename(true));
                         break;
+                    /*
                     case 'Move Up':
                         console.log('Pressed up');
                         break;
                     case 'Move Down':
                         console.log('Pressed down');
                         break;
+                    */
                     case 'Sort':
-                        console.log('Pressed sort');
+                        if( props.isOnBooks )
+                            dispatch( action.books.sortBooks() );
+                        else
+                            dispatch( action.books.sortPages() );
+
+                        //Save the current shelf into the async storage. it requires to be timeout
+                        setTimeout(() => dispatch(action.shelf.saveCurrentShelf()), 100);
                         break;
                     case 'Delete':
                         localDispatch( localAction.showDialogDelete(true))

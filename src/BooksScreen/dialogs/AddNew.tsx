@@ -20,11 +20,18 @@ interface propsReceive {
 }
 
 export default function AddNew(props :propsReceive) {
-    const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider)
+    const { dispatch } :StateAPI = React.useContext(contextProvider);
+    const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider);
 
-    function handleAdd() {
+    function handleAdd(name :string) {
         localDispatch( localAction.showDialogAdd(false) );
-        console.log('Adding');
+        if(props.isOnBooks)
+            dispatch( action.books.addBook(name) );
+        else
+            dispatch( action.books.addPage(name) );
+
+    //Save the current shelf into the async storage. it requires to be timeout
+        setTimeout(() => dispatch(action.shelf.saveCurrentShelf()), 100);
     }
 
     return (

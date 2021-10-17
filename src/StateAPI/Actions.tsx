@@ -7,6 +7,21 @@ import { ActionInterface, actionType } from "./Interface";
 import { AShelf, Book } from "./index";
 
 const Action = {
+    app: {
+        doneLoading: () :ActionInterface => {
+            return {
+                type: actionType.doneLoading
+            }
+        },
+        
+        setIsOnBooks: (isOnBooks :boolean) :ActionInterface => {
+            return {
+                type: actionType.setIsOnBooks,
+                payload: isOnBooks
+            }
+        },
+    },
+
     shelf: {
         setList: (newstate :Array<AShelf>) :ActionInterface => {
             return {
@@ -59,13 +74,6 @@ const Action = {
             }
         },
 
-        setIsOnBooks: (isOnBooks :boolean) :ActionInterface => {
-            return {
-                type: actionType.setIsOnBooks,
-                payload: isOnBooks
-            }
-        },
-
         setSelectedBook: (bookindex :number) :ActionInterface => {
             return {
                 type: actionType.setSelectedBook,
@@ -87,6 +95,57 @@ const Action = {
             }
         },
 
+        sortBooks: () :ActionInterface => {
+            return {
+                type: actionType.sortBooks,
+            }
+        },
+        sortPages: () :ActionInterface => {
+            return {
+                type: actionType.sortPages,
+            }
+        },
+
+        addBook: (name :string) :ActionInterface => {
+            return {
+                type: actionType.addBook,
+                payload: name
+            }
+        },
+        addPage: (name :string) :ActionInterface => {
+            return {
+                type: actionType.addPage,
+                payload: name
+            }
+        },
+
+        deleteBook: (index :number) :ActionInterface => {
+            return {
+                type: actionType.deleteBook,
+                index: index
+            }
+        },
+        deletePage: (index :number) :ActionInterface => {
+            return {
+                type: actionType.deletePage,
+                index: index
+            }
+        },
+
+        renameBook: (name: string, index :number) :ActionInterface => {
+            return {
+                type: actionType.renameBook,
+                payload: name,
+                index: index
+            }
+        },
+        renamePage: (name :string, index :number) :ActionInterface => {
+            return {
+                type: actionType.renamePage,
+                payload: name,
+                index: index
+            }
+        },
     },
 }
 export default Action;
