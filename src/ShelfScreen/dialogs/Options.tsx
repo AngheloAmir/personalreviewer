@@ -20,6 +20,7 @@ interface propsReceive {
     cancel               :() => void;
     onRenameSelect       :() => void;
     onDeleteSelect       :() => void;
+    onExport             :() => void;
 }
 
 export default function OptionsDialog(props :propsReceive) {
@@ -33,13 +34,14 @@ export default function OptionsDialog(props :propsReceive) {
                     close={props.cancel}
                     onRenameSelect={props.onRenameSelect}
                     onDeleteSelect={props.onDeleteSelect}
+                    onExport={props.onExport}
                 />
             }
         />
     );
 }
 
-function DialogContent( {close, onRenameSelect, onDeleteSelect} :any ) {
+function DialogContent( {close, onRenameSelect, onDeleteSelect, onExport} :any ) {
     return (
         <View>
             <TouchableOpacity style={styles.item} onPress={() => { onRenameSelect(); close() }}>
@@ -52,9 +54,9 @@ function DialogContent( {close, onRenameSelect, onDeleteSelect} :any ) {
                 <Text style={styles.itemtext}>Delete</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.item}>
+            <TouchableOpacity style={styles.item} onPress={() => { onExport(); close(); }}>
                 <MaterialCommunityIcons name='file-export' size={32} color='lightgreen' />
-                <Text style={styles.itemtext}>Export this shelf</Text>
+                <Text style={styles.itemtext}>Download this shelf</Text>
             </TouchableOpacity>
         </View>
     );

@@ -44,7 +44,7 @@ export default function OptionsDialog(props :propsReceive) {
                             `Created: ${state.shelf[state.selectedBook].date} \n` +
                             `Last Modified: ${state.shelf[state.selectedBook].lastmod}` :
                             `Created: ${state.shelf[state.selectedBook].files[state.selectedPage].date}\n` +
-                            `Last Modifled: ${state.shelf[state.selectedBook].files[state.selectedPage].lastmod}`;
+                            `Last Modified: ${state.shelf[state.selectedBook].files[state.selectedPage].lastmod}`;
                         localDispatch( localAction.setDialogInfo(true, info));
                         break;
 

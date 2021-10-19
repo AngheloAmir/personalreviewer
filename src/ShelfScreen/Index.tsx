@@ -12,17 +12,30 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
+import { contextProvider, StateAPI } from '../StateAPI';
 import Topbar from '../TopBar';
 import GlobalStyle from '../Utility/GlobalStyles';
 import ListOfShelfs     from './components/ListOfShelf';
 import ShelfDialogs     from './components/ShelfDialogs';
 
+import ExportAFile from '../!NavDrawerScreens/Functions/Export';
+
 export default function Index({navigation} :any) {
+  const { state } :StateAPI                       = React.useContext(contextProvider);
   const [currentItem, setItem]                    = React.useState({name: '', index: 0});
   const [isShowAddDialog, setShowAddDialog]       = React.useState(false);
   const [isShowOptionDialog, setShowOptionDialog] = React.useState(false);
   const [isRenameOptionDialog, setRenameDialog]   = React.useState(false);
   const [isConfirmDeleteDialog, setConfirmDelete] = React.useState(false);
+  const [exportmsg, setexportmsg]                 = React.useState({show :false, title: '', msg: ''});
+
+  async function handleOnExport() {
+    const msg = await ExportAFile(currentItem.name, state.listOfShelfs[currentItem.index].key);
+    if( msg.error )
+      setexportmsg({show: true, title: 'Error', msg: msg.message });
+    else 
+      setexportmsg({show: true, title: 'Exporting done', msg: msg.message });
+  }
 
   return (
     <View style={{backgroundColor: GlobalStyle.defaultBackgroundColor}}>
@@ -45,6 +58,9 @@ export default function Index({navigation} :any) {
             setShowOptionDialog={setShowOptionDialog}
             setRenameDialog={setRenameDialog}
             setConfirmDelete={setConfirmDelete}
+            onExport={handleOnExport}
+            exportmsg={exportmsg}
+            setexportmsg={setexportmsg}
         />
         </View>
     </View>

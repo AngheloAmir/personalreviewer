@@ -6,7 +6,7 @@ import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { contextProvider, StateAPI } from '../../StateAPI';
-import { generateQuiz } from '../ColorBlueFile/QuizGenerator';
+import { generateQuiz } from '../../Utility/ColorBlueFile/QuizGenerator';
 
 export default function QuizInit({setting, setsetting, setquestions} :any) {
     const { state } :StateAPI = React.useContext(contextProvider);

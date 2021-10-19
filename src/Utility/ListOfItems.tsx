@@ -22,9 +22,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 interface propsReceive {
     items               :Array<{name :string}  | any> | undefined;
-    onOptionPressed     :(index :number) => void;
+    onOptionPressed?    :(index :number) => void;
     onItemSelected      :(item :any, index :number) => void;
     itemIcon            :() => React.Component | any;
+    noOption?           :boolean;
 }
 
 export default function ListOfItems( props :propsReceive ) {
@@ -41,9 +42,11 @@ export default function ListOfItems( props :propsReceive ) {
                             { props.itemIcon() }
                             <Text style={styles.itemtext}>{item.name}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => props.onOptionPressed(index) }>
-                            <MaterialCommunityIcons name="dots-horizontal" size={24} color='lightgreen' />
-                        </TouchableOpacity>
+                        { !props.noOption && 
+                            <TouchableOpacity onPress={() => props.onOptionPressed && props.onOptionPressed(index) }>
+                                <MaterialCommunityIcons name="dots-horizontal" size={24} color='lightgreen' />
+                            </TouchableOpacity>
+                        }
                     </View>
                 )
             })

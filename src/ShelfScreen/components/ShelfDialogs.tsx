@@ -16,6 +16,7 @@ import AddNewShelf      from '../dialogs/AddNewShelf';
 import Options          from '../dialogs/Options';  
 import RenameShelf      from '../dialogs/RenameShelf';
 import ConfirmDelete    from '../dialogs/ConfirmDelete';
+import InfoBox          from '../../Utility/Dialogs/InfoBox';
 
 interface propsReceive {
    currentItem              :{name: string, index: number};
@@ -28,6 +29,9 @@ interface propsReceive {
    setShowOptionDialog      :(show :boolean) => void;
    setRenameDialog          :(show :boolean) => void;
    setConfirmDelete         :(show :boolean) => void;
+   onExport                 :() => void;
+   exportmsg                :{show  :boolean, title :string, msg :string};
+   setexportmsg             :(exportmsg :{show :boolean, title :string, msg :string}) => void;
 }
 
 export default function ShelfScreen(props :propsReceive) {
@@ -45,6 +49,7 @@ export default function ShelfScreen(props :propsReceive) {
                 cancel={() => props.setShowOptionDialog(false)}
                 onRenameSelect={() => props.setRenameDialog(true)}
                 onDeleteSelect={() => props.setConfirmDelete(true)}
+                onExport={() => props.onExport() }
             /> 
             <RenameShelf
                 show={props.isRenameOptionDialog}
@@ -57,6 +62,12 @@ export default function ShelfScreen(props :propsReceive) {
                 shelfname={props.currentItem.name}
                 index={props.currentItem.index}
                 onclose={() => props.setConfirmDelete(false)}
+            />
+            <InfoBox
+                isshow={props.exportmsg.show}
+                title={props.exportmsg.title}
+                text={props.exportmsg.msg}
+                ok={() => props.setexportmsg({show: false, title: '', msg: ''})}
             />
         </View>
     );

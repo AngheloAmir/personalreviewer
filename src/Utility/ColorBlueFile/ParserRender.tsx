@@ -17,6 +17,8 @@ export default function ParserRender(props :propsReceive) {
 
     let spaces = '';
     let isEncounterAt = false;
+    let isNum = false;
+    let numcount = 0;
 
     return (
         <View>
@@ -39,6 +41,20 @@ export default function ParserRender(props :propsReceive) {
                             return <Text key={index} style={[styles.text, styles.red]}>{text.substring(1, text.length)}</Text>
 
                         case "&":
+                          if(isNum) {
+                            spaces = '';
+                            isNum = false;
+                            numcount = 0;
+                            return <View key={index}></View>
+                          }
+                          else {
+                            spaces = '';
+                            isNum = true;
+                            numcount = 0;
+                            return <Text key={index}
+                                style={[styles.text, styles.keywordList]}>{text.substring(1, text.length)}</Text>
+                          }
+
                         case "@":
                             if(isEncounterAt) {
                                 spaces = '';
@@ -46,19 +62,38 @@ export default function ParserRender(props :propsReceive) {
                                 return <View key={index}></View>
                             }
                             else {
-                                spaces = '\t\t';
+                                spaces = '';
                                 isEncounterAt = true;
-                                return <Text key={index} style={[styles.text, styles.keywordList]}>{text.substring(1, text.length)}</Text>
+                                return <Text key={index}
+                                    style={[styles.text, styles.keywordList]}>{text.substring(1, text.length)}</Text>
                             }
 
                         case "*":
-                            spaces = '\t\t\t\t';
-                            return <Text key={index} style={[styles.text, styles.keywordListItem]}>{'\t\t'}{text.substring(1, text.length)}</Text>
+                            spaces = '\t\t';
+                            if(isNum) {
+                                numcount = numcount + 1;
+                                return (
+                                    <View style={styles.shifted} key={index}>
+                                        <Text key={index} style={[styles.text, styles.keywordListItem]}>{romanize(numcount)}. {text.substring(1, text.length)}</Text>
+                                    </View>
+                                );
+                            }
+                            return (
+                                <View style={styles.shifted} key={index}>
+                                    <Text key={index} style={[styles.text, styles.keywordListItem]}>• {text.substring(1, text.length)}</Text>
+                                </View>
+                            );
 
                         case "-":
                             return <View key={index} style={styles.line}></View>
 
                         default:
+                            if(isEncounterAt)
+                                return (
+                                    <View style={styles.shifted} key={index}>
+                                        <Text key={index} style={[styles.text]}>{spaces + text}</Text>
+                                    </View>
+                                );
                             return <Text key={index} style={[styles.text]}>{spaces + text}</Text>
                     }
                 })
@@ -74,8 +109,12 @@ export default function ParserRender(props :propsReceive) {
     }
 }
 
-import GlobalStyle from "../../Utility/GlobalStyles";
+import GlobalStyle from "../GlobalStyles";
 const styles = StyleSheet.create({
+    shifted: {
+        width: '95%',
+        marginLeft: '5%',
+    },
     text: {
         fontSize: GlobalStyle.fontsize,
         color: 'lightgray',
@@ -91,7 +130,7 @@ const styles = StyleSheet.create({
         fontStyle: 'italic'
     },
     keyword: {
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         color: 'lightblue'
     },
     keywordList: {
@@ -99,7 +138,7 @@ const styles = StyleSheet.create({
         color: '#99c'
     },
     keywordListItem: {
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         color: '#6ca'
     },
     red: {
@@ -114,3 +153,17 @@ const styles = StyleSheet.create({
         paddingVertical: 1
     }
 });
+
+function romanize (num :number) {
+    if (isNaN(num))
+        return NaN;
+    var digits :any = String(+num).split(""),
+        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+               "","I","II","III","IV","V","VI","VII","VIII","IX"],
+        roman = "",
+        i = 3;
+    while (i--)
+        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+    return Array(+digits.join("") + 1).join("M") + roman;
+}

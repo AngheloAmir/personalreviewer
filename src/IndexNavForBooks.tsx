@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -13,6 +12,10 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { contextProvider, StateAPI, action } from './StateAPI';
 import HomeScreenIndex      from './BooksScreen/Index';
+import SearchScreen         from './!NavDrawerScreens/SearchScreen';
+import HelpScreen           from './!NavDrawerScreens/HelpScreen';
+import AboutScreen          from './!NavDrawerScreens/AboutScreen';
+
 import GlobalStyle          from './Utility/GlobalStyles';
 
 export default function Index() {
@@ -34,29 +37,29 @@ export default function Index() {
             
             <View style={styles.drawerContainer}>
               <TouchableOpacity
-                style={props.state.index == 0 ? styles.drawerItemActive : styles.drawerItem }
+                style={ styles.drawerItem }
                 onPress={() => dispatch(action.app.setIsOnBooks(false))}>
                 <MaterialCommunityIcons name='bookshelf' size={24} color='lightgreen' />
                 <Text style={styles.drawerText}>Your Shelfs</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={props.state.index == 2 ? styles.drawerItemActive : styles.drawerItem }
-                /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
+                style={props.state.index == 1 ? styles.drawerItemActive : styles.drawerItem }
+                onPress={() => props.state.index != 1 && props.navigation.navigate('Search')}>
                 <MaterialCommunityIcons name='file-find' size={24} color='lightgreen' />
                 <Text style={styles.drawerText}>Search</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={props.state.index == 3 ? styles.drawerItemActive : styles.drawerItem }
-                /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
+                style={props.state.index == 2 ? styles.drawerItemActive : styles.drawerItem }
+                onPress={() => props.state.index != 2 && props.navigation.navigate('Help')}>
                 <MaterialCommunityIcons name='help-box' size={24} color='lightgreen' />
                 <Text style={styles.drawerText}>Help</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={props.state.index == 3 ? styles.drawerItemActive : styles.drawerItem }
-                /*onPress={() => props.state.index != 0 && props.navigation.navigate('....')}*/>
+                onPress={() => props.state.index != 3 && props.navigation.navigate('About')}>
                 <MaterialCommunityIcons name='information-outline' size={24} color='lightgreen' />
                 <Text style={styles.drawerText}>About</Text>
               </TouchableOpacity>
@@ -65,6 +68,9 @@ export default function Index() {
           </View>
       )}>
         <Drawer.Screen name="Books" component={HomeScreenIndex} />
+        <Drawer.Screen name="Search" component={SearchScreen} />
+        <Drawer.Screen name="Help" component={HelpScreen} />
+        <Drawer.Screen name="About" component={AboutScreen} />
         
       </Drawer.Navigator>
     </NavigationContainer>

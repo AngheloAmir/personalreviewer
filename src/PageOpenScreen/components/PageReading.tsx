@@ -12,7 +12,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View, Button} from 'react-native';
 
 import { contextProvider, StateAPI } from '../../StateAPI';
-import ParseRender from '../ColorBlueFile/ParserRender';
+import ParseRender from '../../Utility/ColorBlueFile/ParserRender';
 
 interface propsReceive {
     setIsReading: (isreading :boolean) => void;

@@ -1,0 +1,36 @@
+{
+    "contents": [
+        {
+            "headingText":  "# Syntax",
+            "paragraph":    "To make a word hightighted, which know as the KEYWORD (in bold color), just add a number sign (#) in the start of a line. Then add new line to it to have its description. A keyword is a word you would normally remember when studying."
+        },
+        {
+            "headingText":  "@ Enumaration (unordered list)",
+            "paragraph":    "Character @ marks the start of an UNORDERLIST and each item is start with STAR (*) to mark that it was a keyword inside an unorder list. Then proceed with a description of this item."
+        },
+        {
+            "headingText":  "& Enumaration (ordered list)",
+            "paragraph":    "Character & marks the start of an ORDERLIST and each item is start with STAR (*) to mark that it was a keyword inside an order list. Then proceed with a description of this item."
+        },
+        {
+            "headingText":  "Example",
+            "paragraph":    "#First Keyword\nDescription of the first keyword\n\n#Second keyword\nDescription of the second keyword\n\n@An Unorderlist\n*Item one\nThis line is the description of item one\n*Item two\nThis line is the description of item two\n@\n\n&An Ordered List\n*Step One\nDescription of the num 1 in an ordered list\n*Step Two\nDescription of the num 2 in an ordered list\n&"
+        },
+        {
+            "headingText":  "Others",
+            "paragraph":    "There are other syntax available to be use but these are ignore during quiz generation"
+        },
+        {
+            "headingText": "Exclamation point (!) ",
+            "paragraph": "Makes the text bold and red"
+        },
+        {
+            "headingText": "Double back-slash (//) ",
+            "paragraph": "Makes the text as comment"
+        },
+        {
+            "headingText": "Minus sign (-)",
+            "paragraph": "Create an horizontal line, ignoring text in it"
+        }
+    ]
+}

@@ -25,14 +25,12 @@
     like: Import. So threfore, it has to be seperated IndexNavigation. The main reason of seperation is because
     capturing back button will produce more complicated solution.
 
-
-
 */
 import React from 'react';
 import { View, StatusBar, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { contextProvider, createDefaultState, action, AShelf } from './src/StateAPI';
+import { contextProvider, createDefaultState, action } from './src/StateAPI';
 import RootReducer from './src/StateAPI/RootReducer';
 
 import IndexNavForShelf from './src/IndexNavForShelf';
@@ -80,9 +78,9 @@ export default function App() {
   //This function will be called after async storage has loaded data into the memory
   //to prevent a flicker
   function storageLoaded() {
-    //if(state.isOnBooks)
-    //  return <IndexNavForBooks />
-    //else
+    if(state.isOnBooks)
+      return <IndexNavForBooks />
+    else
       return <IndexNavForShelf />
   }
   return (

@@ -39,6 +39,14 @@ import { View, ImageSourcePropType, ScrollView, Linking, Dimensions,
 //@ts-ignore
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+const THEME = {
+    fontcolor: 'white',
+    fontsize:   18,
+    fontSizeBig: 21,
+    fontcolorBig: '#99c',
+    lineheight: 24,
+}
+
 interface propsReceive {
     story :Story;
 }
@@ -50,7 +58,7 @@ export interface Story {
     imagecredits? :string;
     contents?     :Array<StoryContent>;
     accordion?    :Array<StoryContent>;
-    references    :Array<{
+    references?   :Array<{
         linkname    :string;
         link        :string;
     }>;
@@ -83,7 +91,8 @@ export default function StoryViewer(props :propsReceive) {
             width: '90%', marginLeft: '5%',
         },
         title: {
-            fontSize:    21,
+            fontSize:    THEME.fontSizeBig,
+            color:       THEME.fontcolorBig,
             fontWeight:  '700',
             marginTop:   8,
         },
@@ -149,12 +158,16 @@ function Paragraph( props :ParagraphProps) {
             marginVertical: 12,
         },
         heading: {
-            fontSize: 21,
+            fontSize:    THEME.fontSizeBig,
+            color:       THEME.fontcolorBig,
             textAlign: 'left',
             marginBottom: 8,
         },
         paragraph: {
-            fontSize: 18, lineHeight: 28, marginBottom: 0, marginTop: 4,
+            fontSize:    THEME.fontsize,
+            color:       THEME.fontcolor,
+            lineHeight:  THEME.lineheight,
+            marginBottom: 0, marginTop: 4,
         },
         contentImage: {
             width:      WindowDimension.width * 0.85,
@@ -208,7 +221,8 @@ function ParagraphImage(props :ParagraphProps) {
             
         },
         link: {
-            color: 'blue', fontSize: 14,
+            color: 'blue',
+            fontSize: THEME.fontsize * 0.8,
             textDecorationLine: 'underline',
         },
     });
@@ -248,13 +262,15 @@ function Accordion(props :AccordionProps ) {
             marginVertical: 5,
         },
         accordionHeading: {
-            fontSize: 21,
+            fontSize: THEME.fontSizeBig,
+            color: THEME.fontcolor,
             alignContent: 'stretch',
             padding: 6,
             paddingLeft: 8,
         },
         accordionSelected: {
-            fontSize: 21,
+            fontSize: THEME.fontSizeBig,
+            color: THEME.fontcolor,
             alignContent: 'stretch',
             borderRadius: 8,
             backgroundColor: '#ddd',
@@ -322,11 +338,13 @@ function References(props :ReferencesProps) {
             marginBottom: 8,
         },
         link: {
-            fontSize: 16, fontStyle: 'italic', color: 'blue',
+            fontSize: THEME.fontsize,
+            fontStyle: 'italic', color: 'blue',
             textDecorationLine: 'underline',
         },
         nolink: {
-            fontSize: 16, fontStyle: 'italic',
+            fontSize: THEME.fontsize,
+            fontStyle: 'italic',
         }
     })
 

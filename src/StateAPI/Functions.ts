@@ -41,18 +41,7 @@ const functions = {
 export default functions;
 
 const firstPageContent =
-`
-//Welcome!
-
-//Editing this is file is simple. To make a word hightighted, which know as the KEYWORD (in bold color), just add a number sign (#) in the start of a line. Then add new line to it to have its description. A keyword is a word you would normally remember when studying.
-
-//Character @ marks the start of an UNORDERLIST and each item is start with STAR (*) to mark that it was a keyword inside an unorder list. Then proceed with a description of this item.
-//Character & marks the start of an ORDERLIST and each item is start with STAR (*) to mark that it was a keyword inside an unorder list. Then proceed with a description of this item.
-
-//This is syntax scheme is used in generating quiz automatically, and requires proper syntax.
-//There are others syntax used but these are ignored during quiz generation.
-
-//Click "Edit" to see how things work or may start "Quiz"! Have fun!
+`//Sample test file
 
 #First Keyword
 Description of the first keyword
@@ -74,9 +63,9 @@ Description of the num 1 in an ordered list
 Description of the num 2 in an ordered list
 &
 
-!Red keyword
-
 -
+
+!Red keyword
 
 #Exclamation point (!) 
 Marks the line in bold red

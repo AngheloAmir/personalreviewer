@@ -1,0 +1,16 @@
+{
+    "contents": [
+        {
+            "headingText":  "Welcome to Personal Reviewer",
+            "paragraph":    "It is a simple text editor crafted for students to review their notes. It features Syntax Hightligting, Quiz Generation and Built-in File System that can be exported or imported. "
+        },
+        {
+            "headingText":  "Author",
+            "paragraph":    "Created by Anghelo Amir, (2021)."
+        },
+        {
+            "headingText":  "Open Source React Native App using Expo",
+            "paragraph":    "https://github.com/AngheloAmir/personalreviewer"
+        }
+    ]
+}

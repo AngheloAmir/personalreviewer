@@ -45,25 +45,23 @@ export default function QuizStart(props :propsReceive) {
         {
             count < maxquestion ?
             <View style={styles.container}>
-                <View>
+                <View style={styles.questionContainer}>
                     <Text style={styles.text}>Question {count + 1} of {maxquestion}</Text>
                     <Text style={styles.text}>{props.questions[count].question}</Text>
                 </View>
-                <View style={styles.questionContainer}>
-                    <View style={styles.choicesContainer}>
-                        <TouchableOpacity style={styles.choiceItem} onPress={() => makeAnswer(0)}>
-                            <Text style={styles.text}>{props.questions[count].choices[0]}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.choiceItem} onPress={() => makeAnswer(1)}>
-                            <Text style={styles.text}>{props.questions[count].choices[1]}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.choiceItem} onPress={() => makeAnswer(2)}>
-                            <Text style={styles.text}>{props.questions[count].choices[2]}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.choiceItem} onPress={() => makeAnswer(3)}>
-                            <Text style={styles.text}>{props.questions[count].choices[3]}</Text>
-                        </TouchableOpacity>
-                    </View>
+                <View style={styles.choicesContainer}>
+                    <TouchableOpacity style={styles.choiceItem} onPress={() => makeAnswer(0)}>
+                        <Text style={styles.text}>{props.questions[count].choices[0]}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.choiceItem} onPress={() => makeAnswer(1)}>
+                        <Text style={styles.text}>{props.questions[count].choices[1]}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.choiceItem} onPress={() => makeAnswer(2)}>
+                        <Text style={styles.text}>{props.questions[count].choices[2]}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.choiceItem} onPress={() => makeAnswer(3)}>
+                        <Text style={styles.text}>{props.questions[count].choices[3]}</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             :
@@ -83,14 +81,15 @@ export default function QuizStart(props :propsReceive) {
 };
 
 import GlobalStyle from '../../Utility/GlobalStyles';
+import { WindowDimension } from '../../Utility/useResponsive';
 const styles = StyleSheet.create({
     container: {
         width: '85%',
         marginLeft: '7.5%',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        height: '85%',
-        marginTop: '15%',
+        height: WindowDimension.height - 100,
+        marginTop: 32,
     },
     containerDone: {
         width: '85%',
@@ -98,11 +97,13 @@ const styles = StyleSheet.create({
         marginTop: '20%',
     },
     questionContainer: {
-
+        height: GlobalStyle.fontsize * 12,
+        flexDirection: 'column',
     },
     text: {
         fontSize: GlobalStyle.fontsize,
         color: GlobalStyle.fontcolor,
+        flexShrink: 1,
     },
     choicesContainer: {
         marginTop: 32,
