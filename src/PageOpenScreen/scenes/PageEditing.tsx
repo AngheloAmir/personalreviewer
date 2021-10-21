@@ -2,11 +2,14 @@
      * TYPE
         Fragment of src/PageOpenScreen/Index - A fragment is a piece of component that is
             part of a scene
+        Scene - A scene (screen) is a component that occupies a large part of the screen
 
     * DESCRIPTION
+        Display the editing scene of a file (page) and its interaction.
 
     * VISIBLE WHEN
         A page is edit
+
 */
 import React from 'react';
 import { View, StyleSheet,
@@ -28,6 +31,7 @@ export default function PageReading(props :propsReceive) {
     const textinputref                  = React.useRef<TextInput>(null);
     const navigation                    = useNavigation();
 
+    //check if the file do exist or has valid contents
     let content = '';
     try {
         if( state.shelf[state.selectedBook].files[state.selectedPage].content != undefined )

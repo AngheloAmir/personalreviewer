@@ -43,7 +43,9 @@ export default function ListOfItems( props :propsReceive ) {
                             <Text style={styles.itemtext}>{item.name}</Text>
                         </TouchableOpacity>
                         { !props.noOption && 
-                            <TouchableOpacity onPress={() => props.onOptionPressed && props.onOptionPressed(index) }>
+                            <TouchableOpacity
+                                style={styles.option}
+                                onPress={() => props.onOptionPressed && props.onOptionPressed(index) }>
                                 <MaterialCommunityIcons name="dots-horizontal" size={24} color='lightgreen' />
                             </TouchableOpacity>
                         }
@@ -59,7 +61,7 @@ import GlobalStyle from './GlobalStyles';
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     item: {
         flexDirection: 'row',
@@ -71,4 +73,6 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         marginTop: 8,
     },
+    option: {
+    }
 });

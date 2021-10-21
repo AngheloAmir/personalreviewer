@@ -1,4 +1,12 @@
 /*
+     * TYPE
+        Scene - A scene (screen) is a component that occupies a large part of the screen
+
+    * DESCRIPTION
+        Show the import screen to the user.
+
+    * VISIBLE WHEN
+        The select "Import" in the navigation drawer while in Shelf Screen
 */
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Touchable } from 'react-native';
@@ -12,8 +20,8 @@ import ListOfItems from '../Utility/ListOfItems';
 import Topbar from '../TopBar';
 import CommonNav from './Functions/Common';
 
-import ContentFile from './ImportScreen/interface';
-import loadFilesInTheHomeDirectory from './ImportScreen/loadFilesInTheHomeDirectory';
+import ContentFile from './Functions/interface';
+import loadFilesInTheHomeDirectory from './Functions/loadFilesInTheHomeDirectory';
 
 export default function Index({navigation} :any) {
     return (

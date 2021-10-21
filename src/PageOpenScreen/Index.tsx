@@ -16,10 +16,10 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import PageReading from './components/PageReading';
-import PageEditing from './components/PageEditing';
-import QuizInit from './components/QuizInit';
-import QuizStart from './components/QuizStart';
+import PageReading from './scenes/PageReading';
+import PageEditing from './scenes/PageEditing';
+import QuizInit from './scenes/QuizInit';
+import QuizStart from './scenes/QuizStart';
 
 export default function PageReadScreenContainer() {
     const [isReading, setIsReading] = React.useState(true);

@@ -23,6 +23,8 @@ export default function RenameItem(props :propsReceive) {
     const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider)
 
     function handleOnOk(text :string) {
+        if(text.length > 22 )
+            text = text.substr(0, 21);
         if( props.isOnBooks )
             dispatch( action.books.renameBook(text, state.selectedBook));
         else

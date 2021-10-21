@@ -24,6 +24,8 @@ export default function AddNew(props :propsReceive) {
     const { localState, localDispatch } :LocalStateAPI = React.useContext(localContextProvider);
 
     function handleAdd(name :string) {
+        if(name.length > 22 )
+            name = name.substr(0, 21);
         localDispatch( localAction.showDialogAdd(false) );
         if(props.isOnBooks)
             dispatch( action.books.addBook(name) );

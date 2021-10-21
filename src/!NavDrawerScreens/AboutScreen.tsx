@@ -1,4 +1,12 @@
 /*
+     * TYPE
+        Scene - A scene (screen) is a component that occupies a large part of the screen
+
+    * DESCRIPTION
+        Display an article
+
+    * VISIBLE WHEN
+        When pressed in the navigation drawer
 */
 import React from 'react';
 import { View, ScrollView } from 'react-native';

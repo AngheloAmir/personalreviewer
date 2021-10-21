@@ -2,8 +2,11 @@
      * TYPE
         Fragment of src/PageOpenScreen/Index - A fragment is a piece of component that is
             part of a scene
+        Scene - A scene (screen) is a component that occupies a large part of the screen
 
     * DESCRIPTION
+        Display the content of the file. Note the ParseRender component is the actual
+        function that handle on how the file should look. 
 
     * VISIBLE WHEN
         A page is open

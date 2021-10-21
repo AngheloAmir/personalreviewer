@@ -1,5 +1,15 @@
 /*
+     * TYPE
+        Fragment of src/PageOpenScreen/Index - A fragment is a piece of component that is
+            part of a scene
+        Scene - A scene (screen) is a component that occupies a large part of the screen
 
+    * DESCRIPTION
+        Display the initial screen when the quiz start button is pressed.
+        This display all of the available option before a quiz question is generated.
+
+    * VISIBLE WHEN
+        Quiz start button is pressed
 */
 import React from 'react';
 import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
@@ -18,6 +28,7 @@ export default function QuizInit({setting, setsetting, setquestions} :any) {
         return <Icon name="checkbox-marked-outline" size={32} color="lightgreen" />
     }
 
+    //This function generate the quiz question
     function handleStartQuiz() {
         const ignores :Array<string> = [];
         if(!setting.includeSteps)    ignores.push('order');

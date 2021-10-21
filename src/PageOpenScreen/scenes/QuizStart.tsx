@@ -1,5 +1,14 @@
 /*
+     * TYPE
+        Fragment of src/PageOpenScreen/Index - A fragment is a piece of component that is
+            part of a scene
+        Scene - A scene (screen) is a component that occupies a large part of the screen
 
+    * DESCRIPTION
+        Display questions to the users and handle the interaction.
+
+    * VISIBLE WHEN
+        After confirming setting the quiz option showed
 */
 import React from 'react';
 import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';

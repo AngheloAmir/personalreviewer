@@ -29,7 +29,7 @@ export default async function ExportAFile(filename :string, storagekey :string) 
         let existpath   = '';
         files.map((file :string) => {
             const ext   = file.substring( file.lastIndexOf('.') + 1, file.length).trim();
-            const fname = file.substring( file.lastIndexOf('%2F') + 3, file.lastIndexOf('.')).trim();
+            const fname = file.substring( file.lastIndexOf('%') + 3, file.lastIndexOf('.')).trim();
             if( ext == 'cbf') {
                 if(filename == fname) {
                     exist = true;

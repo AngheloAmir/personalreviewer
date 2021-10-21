@@ -1,4 +1,12 @@
 /*
+     * TYPE
+        Scene - A scene (screen) is a component that occupies a large part of the screen
+
+    * DESCRIPTION
+        Display the Search screen.
+
+    * VISIBLE WHEN
+        The user pressed "Search" in the navigation drawer
 */
 import React from 'react';
 import { View, StyleSheet, ScrollView, Text, TextInput, Button } from 'react-native';
@@ -105,8 +113,6 @@ const styles = StyleSheet.create({
         marginLeft: '5%',
         flexDirection: 'column',
         height: WindowDimension.height - 80,
-        //borderWidth: 1,
-        //borderColor: 'green',
     },
     searchInputContainer: {
         marginTop: 16,
@@ -142,5 +148,4 @@ const styles = StyleSheet.create({
         fontSize: GlobalStyle.fontsize,
         color: 'lightblue'
     },
-    
 });
